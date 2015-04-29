@@ -1,0 +1,18 @@
+{
+  "name":"JBoss BPM & JDV Travel Agency Integration Demo",
+  "summary":"This is an online employee travel booking process project. It contains multiple web services for looking up data for the process, rules to calculate pricing, decision table, compensations features that are triggered when paying with fraud detectedcredit card. Install options - local.",
+  "author":"Niraj Patel, Shepherd Chengeta, Bill Kemp, Andrew Block, Eric D. Schabell",
+  "categories":["brms","bpms","integration"],
+  "level":"Easy Peasy",
+  "published":true,
+  "prerequisites":"Java 1.7 or 1.8",
+  "targetProduct":"JBoss BPM Suite",
+  "productVersion":"JBoss BPM Suite 6.1",
+  "technologies": ["JBoss BPM Suite"],
+  "links": [ 
+    { 
+      "name":"Code",
+      "url":"https://github.com/jbossdemocentral/bpms-travel-agency-demo"
+    }
+  ]
+}
