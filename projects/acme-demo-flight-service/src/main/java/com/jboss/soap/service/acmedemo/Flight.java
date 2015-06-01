@@ -41,7 +41,8 @@ import javax.xml.bind.annotation.XmlType;
     "ratePerPerson",
     "startCity",
     "targetCity",
-    "travelDate"
+    "travelDate",
+    "arrivalDate"
 })
 public class Flight implements Serializable {
 
@@ -56,7 +57,8 @@ public class Flight implements Serializable {
     protected String targetCity;
     @XmlElement(required = true)
     protected String travelDate;
-
+    @XmlElement(required = true)
+    protected String arrivalDate;
     /**
      * Gets the value of the company property.
      * 
@@ -191,6 +193,41 @@ public class Flight implements Serializable {
      */
     public void setTravelDate(String value) {
         this.travelDate = value;
+    }
+    
+    /**
+     * Gets the value of the arrivalDate property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getArrivalDate() {
+        return travelDate;
+    }
+
+    /**
+     * Sets the value of the arrivalDate property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setArrivalDate(String value) {
+        this.travelDate = value;
+    }   
+    
+    public String toString() {
+    	return "FlightNo: "+getPlaneId()+
+    			" Airline: "+ getCompany()+
+    			" Rate: "+ this.getRatePerPerson()+
+    			" Origin: "+this.getStartCity()+
+    			" Destination: " + this.getTargetCity()+
+    			" Travel Date: "+this.getTravelDate()+
+    			" Arrival Date: "+this.getArrivalDate();
+
     }
 
 }

@@ -91,7 +91,7 @@ public class BpmsClientThread {
             Document doc = null;
             try {
                 doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new ByteArrayInputStream(response.toString().getBytes()));
-                System.out.println("Process  2: " + doc.getDoctype());
+                System.out.println("Process  2: " + doc.getNodeValue());
             } catch (SAXException e) {
                 e.printStackTrace();
             } catch (IOException e) {

@@ -41,7 +41,7 @@ public class SimpleServlet extends HttpServlet {
 		System.out.println("=====> Before sending request: HashMap values are: \n" + hm);
 		BpmsClientThread t = new BpmsClientThread();
 		processId = t.starBusinessProcess(hm);
-		System.out.println("=====> After sending request: ");
+		System.out.println("=====> After sending request (processID): " + processId);
 		
 		response.setCharacterEncoding("ISO-8859-1");
 		response.setContentType("text/html");

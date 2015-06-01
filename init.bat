@@ -11,12 +11,21 @@ set JBOSS_HOME=%PROJECT_HOME%target\jboss-eap-6.4
 set SERVER_DIR=%JBOSS_HOME%\standalone\deployments\
 set SERVER_CONF=%JBOSS_HOME%\standalone\configuration\
 set SERVER_BIN=%JBOSS_HOME%\bin
-set SRC_DIR=%PROJECT_HOME%installs
+
+set DV_JBOSS_HOME=%PROJECT_HOME%target\dv_6.1
+set DV_SERVER_DIR=%DV_JBOSS_HOME%\standalone\deployments\
+set DV_SERVER_CONF=%DV_JBOSS_HOME%\standalone\configuration\
+set DV_SERVER_BIN=%DV_JBOSS_HOME%\bin
+set DV_SRC_DIR=%PROJECT_HOME%installs
+
 set SUPPORT_DIR=%PROJECT_HOME%support
 set PRJ_DIR=%PROJECT_HOME%projects
 set BPMS=jboss-bpmsuite-6.1.0.GA-installer.jar
 set EAP=jboss-eap-6.4.0-installer.jar
 set VERSION=6.1
+
+set DV=jboss-dv-installer-6.1.0.redhat-3.jar
+set DV_VERSION=6.1.0
 
 REM wipe screen.
 cls
@@ -55,10 +64,20 @@ if exist %SRC_DIR%\%EAP% (
 )
 
 if exist %SRC_DIR%\%BPMS% (
-        echo Product sources are present...
+        echo BPMS Product sources are present...
         echo.
 ) else (
         echo Need to download %BPMS% package from the Customer Support Portal
+        echo and place it in the %SRC_DIR% directory to proceed...
+        echo.
+        GOTO :EOF
+)
+
+if exist %SRC_DIR%\%DV% (
+        echo DV Product sources are present...
+        echo.
+) else (
+        echo Need to download %DV% package from the Customer Support Portal
         echo and place it in the %SRC_DIR% directory to proceed...
         echo.
         GOTO :EOF
@@ -90,6 +109,16 @@ call java -jar %SRC_DIR%/%BPMS% %SUPPORT_DIR%\installation-bpms -variablefile %S
 
 if not "%ERRORLEVEL%" == "0" (
 	echo Error Occurred During %PRODUCT% Installation!
+	echo.
+	GOTO :EOF
+)
+
+echo JBoss DV installer running now...
+echo.
+call java -jar %SRC_DIR%/%DV% %SUPPORT_DIR%\teiidfiles\installation-dv -variablefile %SUPPORT_DIR%\teiidfiles\installation-dv.variables
+
+if not "%ERRORLEVEL%" == "0" (
+	echo Error Occurred During JBoss DV Installation!
 	echo.
 	GOTO :EOF
 )
@@ -143,19 +172,37 @@ REM xcopy /Y /Q "%SUPPORT_DIR%\1000_jbpm_demo_h2.sql" "%SERVER_DIR%\dashbuilder.
 REM echo.
 
 echo.
-echo ========================================================================
-echo =                                                                      =
-echo =  You can now start the %PRODUCT% with:                         =
-echo =                                                                      =
-echo =   %SERVER_BIN%\standalone.bat                           =
-echo =                                                                      =
-echo =  Login into business central at:                                     =
-echo =                                                                      =
-echo =    http://localhost:8080/business-central  [u:erics / p:bpmsuite1!]  =
-echo =                                                                      =
-echo =  See README.md for general details to run the various demo cases.    =
-echo =                                                                      =
-echo =  %PRODUCT% %VERSION% %DEMO% Setup Complete.            =
-echo =                                                                      =
-echo ========================================================================
+echo - setting up standalone.xml configuration adjustments for DV server...
+echo.
+xcopy /Y /Q "%SUPPORT_DIR%\teiidfiles\standalone.xml" "%DV_SERVER_CONF%"
+echo.
+
+echo.
+echo - setting up travel VDB for DV server...
+echo.
+xcopy /Y /Q "%SUPPORT_DIR%\teiidfiles\vdb\travel-vdb.xml" "%DV_SERVER_DIR%"
+xcopy /Y /Q "%SUPPORT_DIR%\teiidfiles\vdb\travel-vdb.xml.dodeploy" "%DV_SERVER_DIR%"
+echo.
+
+
+echo.
+echo ===========================================================================
+echo =                                                                         =
+echo =  First start DV server with:                                            =
+echo =                                                                         =
+echo =   $DV_SERVER_BIN\standalone.bat -Djboss.socket.binding.port-offset=100  =
+echo =                                                                         =
+echo =  You can now start the %PRODUCT% with:                                  =
+echo =                                                                         =
+echo =   %SERVER_BIN%\standalone.bat                                           =
+echo =                                                                         =
+echo =  Login into business central at:                                        =
+echo =                                                                         =
+echo =    http://localhost:8080/business-central  [u:erics / p:bpmsuite1!]     =
+echo =                                                                         =
+echo =  See README.md for general details to run the various demo cases.       =
+echo =                                                                         =
+echo =  %PRODUCT% %VERSION% %DEMO% Setup Complete.                             =
+echo =                                                                         =
+echo ===========================================================================
 echo.

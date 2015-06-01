@@ -102,7 +102,10 @@ h2 {
 				<label for = "fromDestination">From Destination</label>
 				<div>
 					<select id = "fromDestination" name="fromDestination">
+						<option value="Denver">Denver</option>
+						<option value="Edinburgh">Edinburgh</option>
 						<option value="London">London</option>
+						<option value="NYC">NYC</option>
 					</select>
 				</div>
 			</div>
@@ -111,23 +114,27 @@ h2 {
 				<label for = "toDestination">To Destination </label>
 				<div>
 					<select id = "toDestination" name="toDestination">
+						<option value="Denver">Denver</option>
 						<option value="Edinburgh">Edinburgh</option>
+						<option value="London">London</option>
+						<option value="NYC">NYC</option>
 					</select>
 				</div>
 			</div>
 
-			<div>
-				<label for = "preferredDateOfArrival">Preferred Date Of Arrival (YYYY-MM-DD)</label>
-				<div>
-					<input type="text" id = "preferredDateOfArrival" name="preferredDateOfArrival" size="20px" />
-				</div>
-			</div>
 			
 			<div> 
 				<label for = "preferredDateOfDeparture">Preferred Date Of Departure (YYYY-MM-DD)</label>
 			
 				<div>	
 					<input type="text" id = "preferredDateOfDeparture" name="preferredDateOfDeparture" size="20px" />
+				</div>
+			</div>
+			
+			<div>
+				<label for = "preferredDateOfArrival">Preferred Date Of Arrival (YYYY-MM-DD)</label>
+				<div>
+					<input type="text" id = "preferredDateOfArrival" name="preferredDateOfArrival" size="20px" />
 				</div>
 			</div>
 

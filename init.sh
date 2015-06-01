@@ -13,7 +13,15 @@ SUPPORT_DIR=./support
 PRJ_DIR=./projects
 BPMS=jboss-bpmsuite-6.1.0.GA-installer.jar
 EAP=jboss-eap-6.4.0-installer.jar
+DV=jboss-dv-installer-6.1.0.redhat-3.jar
+#DV=jboss-dv-installer-6.2.0.ER1-redhat-1-2.jar
 VERSION=6.1
+DV_VERSION=6.1.0
+
+DV_JBOSS_HOME=./target/dv_6.1
+DV_SERVER_DIR=$DV_JBOSS_HOME/standalone/deployments/
+DV_SERVER_CONF=$DV_JBOSS_HOME/standalone/configuration/
+DV_SERVER_BIN=$DV_JBOSS_HOME/bin
 
 
 # wipe screen.
@@ -67,9 +75,27 @@ else
 		exit
 fi
 
+# make some checks first before proceeding.	
+if [ -r $SRC_DIR/$DV ] || [ -L $SRC_DIR/$DV ]; then
+	echo JBoss product sources, $DV present...
+	echo
+else
+	echo Need to download $DV package from the Customer Portal 
+	echo and place it in the $SRC_DIR directory to proceed...
+	echo
+	exit
+fi
+
 # Remove the old JBoss instance, if it exists.
 if [ -x $JBOSS_HOME ]; then
 		echo "  - existing JBoss product install removed..."
+		echo
+		rm -rf target
+fi
+
+# Remove the old JBoss instance, if it exists.
+if [ -x $DV_JBOSS_HOME ]; then
+		echo "  - existing JBoss DV product install removed..."
 		echo
 		rm -rf target
 fi
@@ -88,6 +114,17 @@ fi
 echo JBoss BPM Suite installer running now...
 echo
 java -jar $SRC_DIR/$BPMS $SUPPORT_DIR/installation-bpms -variablefile $SUPPORT_DIR/installation-bpms.variables
+
+if [ $? -ne 0 ]; then
+	echo Error occurred during $PRODUCT installation!
+	exit
+fi
+
+echo JBoss DV installer running now...
+echo
+java -jar $SRC_DIR/$DV 
+
+#$SUPPORT_DIR/installation-bpms -variablefile $SUPPORT_DIR/installation-bpms.variables
 
 if [ $? -ne 0 ]; then
 	echo Error occurred during $PRODUCT installation!
@@ -139,8 +176,26 @@ echo - setting up mock bpm dashboard data...
 cp $SUPPORT_DIR/1000_jbpm_demo_h2.sql $SERVER_DIR/dashbuilder.war/WEB-INF/etc/sql
 echo
 
+echo "  - making sure standalone.sh for DV server is executable..."
+echo
+chmod u+x $DV_JBOSS_HOME/bin/standalone.sh
+
+echo
+echo "  - setting up standalone.xml configuration adjustments for DV..."
+echo
+cp $SUPPORT_DIR/teiidfiles/standalone.xml $DV_SERVER_CONF
+
+echo "  - setup Travel VDB ..."
+echo
+cp $SUPPORT_DIR/teiidfiles/vdb/* $DV_SERVER_DIR
+cp $SUPPORT_DIR/teiidfiles/data/* $DV_SERVER_CONF
+
 echo
 echo "========================================================================"
+echo "=                                                                      ="
+echo "=  First start DV with:                         ="
+echo "=                                                                      ="
+echo "=   $DV_SERVER_BIN/standalone.sh -Djboss.socket.binding.port-offset=100                         ="
 echo "=                                                                      ="
 echo "=  You can now start the $PRODUCT with:                         ="
 echo "=                                                                      ="
