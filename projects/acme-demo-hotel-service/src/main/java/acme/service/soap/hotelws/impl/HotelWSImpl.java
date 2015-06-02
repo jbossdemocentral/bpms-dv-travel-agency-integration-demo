@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.sql.SQLException;
 import java.util.Random;
 import java.util.Date;
@@ -22,17 +23,28 @@ import acme.service.soap.hotelws.Resort;
 
 @WebService(serviceName = "HotelWS", endpointInterface = "acme.service.soap.hotelws.HotelWS", targetNamespace = "http://soap.service.acme/HotelWS/")
 public class HotelWSImpl implements HotelWS {
-	
+	private static SimpleDateFormat FORMAT =new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
 	static Connection CONNECTION = null;
 	
+	private static Resort lastSearched = null;
+	
 	static {
+		
+		lastSearched = new Resort();
+		lastSearched.setHotelId(new Integer(10));
+		lastSearched.setAvailableFrom("2015-12-20");
+		lastSearched.setAvailableTo("2015-12-29");
+		
 		createConnection();
 	}
 	public String bookHotel(String in) {
-		SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-
+		
 		SessionIdentifierGenerator bookingRef = new SessionIdentifierGenerator();
 		String refNum = bookingRef.nextSessionId();
+		
+		System.out.println("Booking Hotel: " + refNum + "(" + in + ")");
+		System.out.println();
 		
 		createConnection();
 		
@@ -42,39 +54,24 @@ public class HotelWSImpl implements HotelWS {
 			statement = CONNECTION.prepareStatement(sql);
 			
 			statement.setString(1, refNum);
-			statement.setInt(2, 10);
-			
-			 Date date;
-			try {
-				date = format.parse("2015-12-20" + " 00:00:00");
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return "";
+			if (lastSearched != null) {
+				statement.setInt(2, (lastSearched.getHotelId() != null ? lastSearched.getHotelId() : 10) );
+				statement.setTimestamp(3, (lastSearched.getAvailableFrom() != null ? convert(lastSearched.getAvailableFrom() + " 00:00:00") : convert("2015-12-20" + " 00:00:00"))  );
+				statement.setTimestamp(4, (lastSearched.getAvailableTo() != null ? convert(lastSearched.getAvailableTo() + " 00:00:00") : convert("2015-12-29" + " 00:00:00"))  ); 
+			} else {
+				statement.setInt(2, 10);
+				statement.setTimestamp(3,  convert("2015-12-20" + " 00:00:00") );
+				statement.setTimestamp(4,  convert("2015-12-29" + " 00:00:00") );
 			}
-		
-			statement.setTimestamp(3,  new java.sql.Timestamp(date.getTime()) );
-			
-			try {
-				date = format.parse("2015-12-29" + " 00:00:00");
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return "";
-			}
-
-			statement.setTimestamp(4,  new java.sql.Timestamp(date.getTime()) );
-
 
 			int results=statement.executeUpdate();
 			
 			statement.close();
 		
 			if (results == 0) {
-				System.out.println("Insert issue, Hotel Request: " + in + " was not inserted");
+				System.out.println("Insert issue, Hotel Request: " + refNum + " was not inserted");
 			} else {
-				System.out.println("Hotel Booked: " + in);
-				System.out.println("Your RESERVATION NUMBER is: "+ refNum);
+				System.out.println("Your Hotel RESERVATION NUMBER is: "+ refNum);
 				System.out.println("SUCCESS: Your Hotel is now reserved.");
 			}
 	
@@ -92,11 +89,6 @@ public class HotelWSImpl implements HotelWS {
 					e.printStackTrace();
 				}
 		}
-		System.out.println("YOUR BOOKING HAS BEEN SUCCESSFUL");
-		
-		
-		System.out.println("YOUR BOOKING REFERENCE IS: "+ refNum);
-			
 		
 		return refNum;
 	}
@@ -204,7 +196,7 @@ public class HotelWSImpl implements HotelWS {
 					}
 			}
 		
-			
+			lastSearched = hotel;
 			return hotel;
 		
 	}
@@ -244,5 +236,18 @@ public class HotelWSImpl implements HotelWS {
 				// do nothing
 			}
 		}
+	}
+	
+	private Timestamp convert(String indate) {
+		 Date date;
+		try {
+			date = FORMAT.parse(indate);
+			return new Timestamp(date.getTime());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new Timestamp((new Date()).getTime());
+
 	}
 }

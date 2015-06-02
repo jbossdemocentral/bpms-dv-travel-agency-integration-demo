@@ -7,6 +7,7 @@ import java.util.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.sql.Timestamp;
 //added for Teiid
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,14 +24,16 @@ import com.jboss.soap.service.acmedemo.FlightRequest;
 
 @WebService(serviceName = "AcmeDemoService", endpointInterface = "com.jboss.soap.service.acmedemo.AcmeDemoInterface", targetNamespace = "http://service.soap.jboss.com/AcmeDemo/")
 public class AcmeDemoInterfaceImpl implements AcmeDemoInterface {
-	
+	private static SimpleDateFormat FORMAT=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
 	static Connection CONNECTION = null;
+	
+	private static Flight lastSearched = null;
 	
 	static {
 		createConnection();
 	}
 	public Flight listAvailablePlanes(FlightRequest in) {
-		SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		
 		System.out.println("===== listAvailablePlanes:" + in.toString());
 		
@@ -53,19 +56,17 @@ public class AcmeDemoInterfaceImpl implements AcmeDemoInterface {
 		if (in.getEndCity() != null) {
 			posEndCity = ++pos;
 			sql += andCond + " Destination = ? "; 
-			andCond = " and ";
+//			andCond = " and ";
 		}		
 	
 		if (in.getStartDate() != null && in.getStartDate().trim().length() > 0) {
 			posStartDate = ++pos;
-			sql += andCond + " Departs = ? "; 
-			andCond = " and ";
 		}		
 		
 		if (in.getEndDate() != null && in.getEndDate().trim().length() > 0) {
 			posEndDate = ++pos;
-			sql += andCond + " Arrives = ? "; 
-		}				
+		}	
+					
 		PreparedStatement statement = null;
 		try {
 			statement = CONNECTION.prepareStatement(sql);
@@ -77,40 +78,15 @@ public class AcmeDemoInterfaceImpl implements AcmeDemoInterface {
 			if (posEndCity > 0) {
 				statement.setString(posEndCity, in.getEndCity());
 			}
-			
+			/*
 			if (posStartDate > 0) {
-				 Date date;
-				try {
-					date = format.parse(in.getStartDate() + " 00:00:00");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					return new Flight();
-				}
-				 
-//			     DateFormat formatter;
-//			      formatter = new SimpleDateFormat("yyyy-MM-dd");/
-//			      Date date = (Date) formatter.parse(in.getStartDate());
-//			      java.sql.Timestamp timeStampDate = new java.sql.Timestamp(date.getTime());
-
-				
-//				java.util.Date today = new java.util.Date(in.getStartDate());
-				statement.setTimestamp(posStartDate,  new java.sql.Timestamp(date.getTime()) );
+				statement.setTimestamp(posStartDate, convert(in.getStartDate() + " 00:00:00") );
 			}
 			
 			if (posEndDate > 0) {
-				 Date date;
-				try {
-					date = format.parse(in.getEndDate() + " 00:00:00");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					return new Flight();
-				}
-			
-				statement.setTimestamp(posEndDate,  new java.sql.Timestamp(date.getTime()) );
-				
-			}			
+				statement.setTimestamp(posEndDate,  convert(in.getEndDate() + " 00:00:00") );	
+			}	
+			*/		
 					
 			ResultSet results=statement.executeQuery();
 			
@@ -124,8 +100,16 @@ public class AcmeDemoInterfaceImpl implements AcmeDemoInterface {
 				outbound.setRatePerPerson(new BigDecimal(  results.getString(5) ));
 				outbound.setStartCity(results.getString(3));
 				outbound.setTargetCity(results.getString(4));
-				outbound.setTravelDate(results.getString(6));
-				outbound.setArrivalDate(results.getString(7));
+				if (posStartDate > 0) {
+					outbound.setTravelDate(in.getStartDate());
+				} else {
+					outbound.setTravelDate(results.getString(6));
+				}
+				if (posEndDate > 0) {
+					outbound.setArrivalDate(in.getEndDate());
+				} else {
+					outbound.setArrivalDate(results.getString(7));
+				}
 				
 				System.out.println("Available Plane: - " + outbound.toString());
 				
@@ -137,6 +121,7 @@ public class AcmeDemoInterfaceImpl implements AcmeDemoInterface {
 			} 
 	
 			System.out.println("=========================================================================");
+			lastSearched = outbound;
 			return outbound; 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -151,7 +136,6 @@ public class AcmeDemoInterfaceImpl implements AcmeDemoInterface {
 					e.printStackTrace();
 				}
 		}
-	
 		return new Flight();
 	
 //		Flight outbound = new Flight();
@@ -182,11 +166,11 @@ public class AcmeDemoInterfaceImpl implements AcmeDemoInterface {
 	public String bookFlights(String in) {
 		SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		
-		System.out.println("Booking Flight: " + in.toString());
-		System.out.println();
-
 		SessionIdentifierGenerator bookingRef = new SessionIdentifierGenerator();
 		String refNum = bookingRef.nextSessionId();
+
+		System.out.println("Booking Flight: " + refNum + "(" + in + ")");
+		System.out.println();
 
 		createConnection();
 		
@@ -196,40 +180,23 @@ public class AcmeDemoInterfaceImpl implements AcmeDemoInterface {
 			statement = CONNECTION.prepareStatement(sql);
 			
 			statement.setString(1, refNum);
-			statement.setInt(2, 880);
-			
-			Date date;
-				 
-				try {
-					date = format.parse("2015-12-20" + " 00:00:00");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					return "";
-				}
-			
-				statement.setTimestamp(3,  new java.sql.Timestamp(date.getTime()) );
-
-				
-				try {
-					date = format.parse("2015-12-29" + " 00:00:00");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					return "";
-				}
-			
-				statement.setTimestamp(4,  new java.sql.Timestamp(date.getTime()) );
-
+			if (lastSearched != null ){
+				statement.setInt(2, lastSearched.getPlaneId());
+				statement.setTimestamp(3, (lastSearched.getTravelDate() != null ? convert(lastSearched.getTravelDate() + " 00:00:00") : convert("2015-12-20" + " 00:00:00")) );
+				statement.setTimestamp(4, (lastSearched.getArrivalDate() != null ? convert(lastSearched.getArrivalDate() + " 00:00:00") : convert("2015-12-29" + " 00:00:00")) );
+			} else {
+				statement.setInt(2, 880);
+				statement.setTimestamp(3,  convert("2015-12-20" + " 00:00:00") );
+				statement.setTimestamp(4, convert("2015-12-29" + " 00:00:00") );
+			}
 				
 			int results=statement.executeUpdate();
 			
 			statement.close();
 		
 			if (results == 0) {
-				System.out.println("Insert issue, Flight: " + in + " was not inserted");
+				System.out.println("Insert issue, Flight: " + refNum + " was not inserted");
 			} else {
-				System.out.println("Booked Flight: " + in);
 				System.out.println("Your RESERVATION NUMBER is: "+ refNum);
 				System.out.println("SUCCESS: Your flight is now reserved.");
 			}
@@ -339,5 +306,18 @@ public class AcmeDemoInterfaceImpl implements AcmeDemoInterface {
 				// do nothing
 			}
 		}
+	}
+	
+	private Timestamp convert(String indate) {
+		 Date date;
+		try {
+			date = FORMAT.parse(indate);
+			return new Timestamp(date.getTime());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new Timestamp((new Date()).getTime());
+
 	}
 }

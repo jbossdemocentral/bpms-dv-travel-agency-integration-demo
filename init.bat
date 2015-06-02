@@ -184,6 +184,14 @@ xcopy /Y /Q "%SUPPORT_DIR%\teiidfiles\vdb\travel-vdb.xml" "%DV_SERVER_DIR%"
 xcopy /Y /Q "%SUPPORT_DIR%\teiidfiles\vdb\travel-vdb.xml.dodeploy" "%DV_SERVER_DIR%"
 echo.
 
+echo - copy Teiid JDBC Driver ...
+echo.
+xcopy "%DV_JBOSS_HOME%\dataVirtualization\jdbc\teiid-8.*.jar" "%SERVER_DIR%\dashbuilder.war\WEB-INF\lib\"
+
+echo - copy flight and hotel dashboard files ...
+echo.
+xcopy "%SUPPORT_DIR%\teiidfiles\dashboard\*.*" "%SERVER_DIR%\dashbuilder.war\WEB-INF\deployments\"
+
 
 echo.
 echo ===========================================================================

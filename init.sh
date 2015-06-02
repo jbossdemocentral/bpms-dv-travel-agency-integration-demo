@@ -56,7 +56,7 @@ command -v mvn -q >/dev/null 2>&1 || { echo >&2 "Maven is required but not insta
 
 # make some checks first before proceeding.	
 if [ -r $SRC_DIR/$EAP ] || [ -L $SRC_DIR/$EAP ]; then
-	echo Product sources are present...
+	echo EAP Product sources are present...
 	echo
 else
 	echo Need to download $EAP package from the Customer Portal 
@@ -66,7 +66,7 @@ else
 fi
 
 if [ -r $SRC_DIR/$BPMS ] || [ -L $SRC_DIR/$BPMS ]; then
-		echo Product sources are present...
+		echo BPMS Suite sources are present...
 		echo
 else
 		echo Need to download $BPMS package from the Customer Portal 
@@ -111,7 +111,7 @@ if [ $? -ne 0 ]; then
 	exit
 fi
 
-echo JBoss BPM Suite installer running now...
+echo "JBoss BPM Suite installer running now..."
 echo
 java -jar $SRC_DIR/$BPMS $SUPPORT_DIR/installation-bpms -variablefile $SUPPORT_DIR/installation-bpms.variables
 
@@ -120,14 +120,12 @@ if [ $? -ne 0 ]; then
 	exit
 fi
 
-echo JBoss DV installer running now...
+echo "JBoss DV installer running now..."
 echo
-java -jar $SRC_DIR/$DV 
-
-#$SUPPORT_DIR/installation-bpms -variablefile $SUPPORT_DIR/installation-bpms.variables
+java -jar $SRC_DIR/$DV $SUPPORT_DIR/teiidfiles/installation-dv -variablefile $SUPPORT_DIR/teiidfiles/installation-dv.variables
 
 if [ $? -ne 0 ]; then
-	echo Error occurred during $PRODUCT installation!
+	echo Error occurred during DV installation!
 	exit
 fi
 
@@ -189,6 +187,16 @@ echo "  - setup Travel VDB ..."
 echo
 cp $SUPPORT_DIR/teiidfiles/vdb/* $DV_SERVER_DIR
 cp $SUPPORT_DIR/teiidfiles/data/* $DV_SERVER_CONF
+
+echo "  - copy Teiid JDBC Driver ..."
+echo
+cp $DV_JBOSS_HOME/dataVirtualization/jdbc/teiid-8.*.jar $SERVER_DIR/dashbuilder.war/WEB-INF/lib
+
+
+echo "  - copy flight and hotel dashboard files ..."
+echo 
+cp $SUPPORT_DIR/teiidfiles/dashboard/* $SERVER_DIR/dashbuilder.war/WEB-INF/deployments
+echo
 
 echo
 echo "========================================================================"
