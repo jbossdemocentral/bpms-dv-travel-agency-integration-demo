@@ -10,12 +10,12 @@
 		<dependency>
 			<groupId>org.jboss.teiid</groupId>
 			<artifactId>teiid-client</artifactId>
-			<version>8.7.0.Final</version>
+			<version>8.7.1.redhat-8</version>
 		</dependency>
          <dependency>
             <groupId>org.jboss.teiid</groupId>
             <artifactId>teiid-common-core</artifactId>
-            <version>8.7.0.Final</version>
+            <version>8.7.1.redhat-8</version>
         </dependency>		
 	</dependencies>
 </project>		
