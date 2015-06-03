@@ -190,5 +190,15 @@ public class Resort implements Serializable {
     public void setAvailableTo(String value) {
         this.availableTo = value;
     }
-
+    
+    public String toString() {
+    	return "Hotel -"
+    			+ " hotel name: " + this.getHotelName()
+    			+ " hotel city: " + this.getHotelCity()
+    			+ " rate: " + this.getRatePerPerson()
+    			+ " available from: " + this.getAvailableFrom()
+    			+ " to: " + this.getAvailableTo()
+    			;
+    }
+ 
 }

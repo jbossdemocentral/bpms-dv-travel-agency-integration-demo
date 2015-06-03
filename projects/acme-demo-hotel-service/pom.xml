@@ -4,4 +4,19 @@
   <artifactId>acme-hotel-service</artifactId>
   <version>1.0</version>
   <packaging>war</packaging>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.jboss.teiid</groupId>
+			<artifactId>teiid-client</artifactId>
+			<version>8.7.0.Final</version>
+		</dependency>
+         <dependency>
+            <groupId>org.jboss.teiid</groupId>
+            <artifactId>teiid-common-core</artifactId>
+            <version>8.7.0.Final</version>
+        </dependency>		
+	</dependencies>
 </project>
+	

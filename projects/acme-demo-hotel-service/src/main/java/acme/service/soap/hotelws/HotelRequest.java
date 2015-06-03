@@ -116,5 +116,13 @@ public class HotelRequest implements Serializable {
     public void setEndDate(String value) {
         this.endDate = value;
     }
+    
+    public String toString() {
+    	return "HotelRequest - " +
+    			" targetCity: " + this.getTargetCity() +
+    			" startDate: " + (this.getStartDate() != null ? this.getStartDate() : " ") +
+    			" endDate: " + (this.getEndDate() != null ? this.getEndDate() : " ")
+    				;
+    }
 
 }

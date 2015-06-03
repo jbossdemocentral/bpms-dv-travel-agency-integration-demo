@@ -113,7 +113,7 @@
                   <user-name>sa</user-name>
                   <password>sa</password>
                </security>
-            </datasource>
+            </datasource>                               
             <drivers>
                <driver name="h2" module="com.h2database.h2">
                   <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>

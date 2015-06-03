@@ -177,7 +177,7 @@ public class bpmsClientApp {
             Document doc = null;
             try {
                 doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new ByteArrayInputStream(response.toString().getBytes()));
-                System.out.println("Process  2: " + doc.getDoctype());
+                System.out.println("Process  2: " + doc.);
             } catch (SAXException e) {
                 e.printStackTrace();
             } catch (IOException e) {

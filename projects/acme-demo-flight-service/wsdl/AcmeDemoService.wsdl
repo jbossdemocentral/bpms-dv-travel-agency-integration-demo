@@ -61,7 +61,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="bookFlights">
-      <soap:operation soapAction="" style="document"/>
+      <soap:operation soapAction="http://service.soap.jboss.com/AcmeDemo/bookFlights" style="document"/>
       <wsdl:input name="bookFlights">
         <soap:body use="literal"/>
       </wsdl:input>
@@ -70,7 +70,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="cancelBooking">
-      <soap:operation soapAction="" style="document"/>
+      <soap:operation soapAction="http://service.soap.jboss.com/AcmeDemo/cancelBooking" style="document"/>
       <wsdl:input name="cancelBooking">
         <soap:body use="literal"/>
       </wsdl:input>

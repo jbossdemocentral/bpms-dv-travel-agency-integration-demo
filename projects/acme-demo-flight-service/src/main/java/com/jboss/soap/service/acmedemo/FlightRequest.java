@@ -40,7 +40,7 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class FlightRequest implements Serializable {
 
-    @XmlElement(required = true)
+	@XmlElement(required = true)
     protected String startCity;
     @XmlElement(required = true)
     protected String endCity;
@@ -144,5 +144,15 @@ public class FlightRequest implements Serializable {
     public void setEndDate(String value) {
         this.endDate = value;
     }
+    
+    public String toString() {
+    	return " Flight Request - Start City: " + (this.getStartCity() != null?this.getStartCity():"N/A")+
+    			" Start Date: "+ (this.getStartDate() != null?this.getStartDate():"N/A")+
+    			" End City: " + (this.getEndCity() != null?this.getEndCity():"N/A") +
+    			" End Date: "+(this.getEndDate() != null?this.getEndDate():"N/A")
+     			;
+
+    }
+
 
 }

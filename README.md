@@ -17,9 +17,11 @@ Install on your machine
 
 3. Run 'init.sh' or 'init.bat' file. 'init.bat' must be run with Administrative privileges.
 
-4. Start JBoss BPMS Server by running 'standalone.sh' or 'standalone.bat' in the <path-to-project>/target/jboss-eap-6.4/bin directory.
+4. Start JBoss DV Server by running 'standalone.sh  -Djboss.socket.binding.port-offset=100' or 'standalone.bat -Djboss.socket.binding.port-offset=100' in the <path-to-project>/target/dv_6.1/bin directory
 
-5. Login to [http://localhost:8080/business-central](http://localhost:8080/business-central)
+5. Start JBoss BPMS Server by running 'standalone.sh' or 'standalone.bat' in the <path-to-project>/target/jboss-eap-6.4/bin directory.
+
+6. Login to [http://localhost:8080/business-central](http://localhost:8080/business-central)
 
     ```
      - login for admin and other roles (u:erics / p:bpmsuite1!)
