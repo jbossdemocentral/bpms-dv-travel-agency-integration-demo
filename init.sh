@@ -1,6 +1,6 @@
 #!/bin/sh 
-DEMO="JBoss BPM Suite & JDV Travel Agency Integration Demo"
-AUTHORS="Niraj Patel, Shepherd Chengeta, Bill Kemp,"
+DEMO="JBoss BPM Suite & DV Travel Agency Integration Demo"
+AUTHORS="Niraj Patel, Shepherd Chengeta, Van Halbert,"
 AUTHORS2="Andrew Block, Eric D. Schabell"
 PROJECT="git@github.com:jbossdemocentral/bpms-dv-travel-agency-integration-demo.git"
 PRODUCT="JBoss BPM Suite"
@@ -14,14 +14,13 @@ PRJ_DIR=./projects
 BPMS=jboss-bpmsuite-6.1.0.GA-installer.jar
 EAP=jboss-eap-6.4.0-installer.jar
 DV=jboss-dv-installer-6.1.0.redhat-3.jar
-#DV=jboss-dv-installer-6.2.0.ER1-redhat-1-2.jar
-VERSION=6.1
-DV_VERSION=6.1.0
-
+DV_PRODUCT="JBoss DV"
 DV_JBOSS_HOME=./target/dv_6.1
 DV_SERVER_DIR=$DV_JBOSS_HOME/standalone/deployments/
 DV_SERVER_CONF=$DV_JBOSS_HOME/standalone/configuration/
 DV_SERVER_BIN=$DV_JBOSS_HOME/bin
+DV_VERSION=6.1.0
+VERSION=6.1
 
 
 # wipe screen.
@@ -44,7 +43,7 @@ echo "##                                                                        
 echo "##                                                                             ##"   
 echo "##  brought to you by,                                                         ##"   
 echo "##                                                                             ##"   
-echo "##         ${AUTHORS}                          ##"
+echo "##         ${AUTHORS}                        ##"
 echo "##         ${AUTHORS2}                                      ##"
 echo "##                                                                             ##"   
 echo "##  ${PROJECT} ##"
@@ -77,7 +76,7 @@ fi
 
 # make some checks first before proceeding.	
 if [ -r $SRC_DIR/$DV ] || [ -L $SRC_DIR/$DV ]; then
-	echo JBoss product sources, $DV present...
+	echo DV product sources, present...
 	echo
 else
 	echo Need to download $DV package from the Customer Portal 
@@ -87,15 +86,8 @@ else
 fi
 
 # Remove the old JBoss instance, if it exists.
-if [ -x $JBOSS_HOME ]; then
-		echo "  - existing JBoss product install removed..."
-		echo
-		rm -rf target
-fi
-
-# Remove the old JBoss instance, if it exists.
-if [ -x $DV_JBOSS_HOME ]; then
-		echo "  - existing JBoss DV product install removed..."
+if [ -x target ]; then
+		echo "  - existing JBoss products install removed..."
 		echo
 		rm -rf target
 fi
@@ -122,7 +114,7 @@ fi
 
 echo "JBoss DV installer running now..."
 echo
-java -jar $SRC_DIR/$DV $SUPPORT_DIR/teiidfiles/installation-dv -variablefile $SUPPORT_DIR/teiidfiles/installation-dv.variables
+java -jar $SRC_DIR/$DV $SUPPORT_DIR/installation-dv -variablefile $SUPPORT_DIR/installation-dv.variables
 
 if [ $? -ne 0 ]; then
 	echo Error occurred during DV installation!
@@ -199,23 +191,24 @@ cp $SUPPORT_DIR/teiidfiles/dashboard/* $SERVER_DIR/dashbuilder.war/WEB-INF/deplo
 echo
 
 echo
-echo "========================================================================"
-echo "=                                                                      ="
-echo "=  First start DV with:                         ="
-echo "=                                                                      ="
-echo "=   $DV_SERVER_BIN/standalone.sh -Djboss.socket.binding.port-offset=100                         ="
-echo "=                                                                      ="
-echo "=  You can now start the $PRODUCT with:                         ="
-echo "=                                                                      ="
-echo "=   $SERVER_BIN/standalone.sh                           ="
-echo "=                                                                      ="
-echo "=  Login into business central at:                                     ="
-echo "=                                                                      ="
-echo "=    http://localhost:8080/business-central  (u:erics / p:bpmsuite1!)  ="
-echo "=                                                                      ="
-echo "=  See README.md for general details to run the various demo cases.    ="
-echo "=                                                                      ="
-echo "=  $PRODUCT $VERSION            ="
+echo "==============================================================================="
+echo "=                                                                             ="
+echo "=  You can now start the $DV_PRODUCT with:                                       ="
+echo "=                                                                             ="
+echo "=   $DV_SERVER_BIN/standalone.sh -Djboss.socket.binding.port-offset=100  ="
+echo "=                                                                             ="
+echo "=  You can now start the $PRODUCT with:                                ="
+echo "=                                                                             ="
+echo "=   $SERVER_BIN/standalone.sh                                  ="
+echo "=                                                                             ="
+echo "=  Login into business central at:                                            ="
+echo "=                                                                             ="
+echo "=    http://localhost:8080/business-central  (u:erics / p:bpmsuite1!)         ="
+echo "=                                                                             ="
+echo "=  See README.md for general details to run the various demo cases.           ="
+echo "=                                                                             ="
 echo "=  $DEMO Setup Complete.        ="
-echo "=                                                                      ="
-echo "========================================================================"
+echo "=                                                                             ="
+echo "==============================================================================="
+echo
+
