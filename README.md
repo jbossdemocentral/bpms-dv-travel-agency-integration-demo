@@ -134,7 +134,7 @@ Released versions
 -----------------
 See the tagged releases for the following versions of the product:
 
-- v1.0 - JBoss BPM Suite 6.1 with travel agency project using disparate data sources through JBoss DV.
+- v1.0 - JBoss BPM Suite 6.1, JBoss DV 6.1.1 and travel agency project using disparate data sources.
 
 
 ![Datasource 01](https://raw.githubusercontent.com/eschabell/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/datasoruce-config-01.png)
