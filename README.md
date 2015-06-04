@@ -151,13 +151,11 @@ See the tagged releases for the following versions of the product:
 
 ![Datasource 07](https://raw.githubusercontent.com/eschabell/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/datasoruce-config-07.png)
 
+![Datasource 08](https://raw.githubusercontent.com/eschabell/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/datasoruce-config-08.png)
+
 ![Agency Process](https://github.com/eschabell/bpms-dv-travel-agency-integration-demo/blob/master/docs/demo-images/agency-process.png?raw=true)
 
 ![Calculate Process](https://github.com/eschabell/bpms-dv-travel-agency-integration-demo/blob/master/docs/demo-images/calculate-process.png?raw=true)
 
 ![Compensation](https://raw.githubusercontent.com/eschabell/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/compensation-process.png?raw=true)
-
-![Special Trips UI Form](https://raw.githubusercontent.com/eschabell/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/SpecialTripsUIform.png)
-
-![Started Process](https://raw.githubusercontent.com/eschabell/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/started-process.png)
 
