@@ -48,6 +48,7 @@ Install on your machine
     - monitor these when running process instances.
     ```
 
+![Datasource tables](https://raw.githubusercontent.com/eschabell/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/datasoruce-config-05.png)
 
 Booking a trip 
 --------------
@@ -136,17 +137,19 @@ See the tagged releases for the following versions of the product:
 - v1.0 - JBoss BPM Suite 6.1 with travel agency project using disparate data sources through JBoss DV.
 
 
-[![Video part 1](https://github.com/eschabell/bpms-dv-travel-agency-integration-demo/blob/master/docs/demo-images/video-part-1.png?raw=true)](http://vimeo.com/ericschabell/bpms-travel-agency-part-1)
+![Datasource 01](https://raw.githubusercontent.com/eschabell/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/datasoruce-config-01.png)
 
-[![Video part 2](https://github.com/eschabell/bpms-dv-travel-agency-integration-demo/blob/master/docs/demo-images/video-part-2.png?raw=true)](http://vimeo.com/ericschabell/bpms-travel-agency-part-2)
+![Datasource 02](https://raw.githubusercontent.com/eschabell/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/datasoruce-config-02.png)
 
-[![Video part 3](https://github.com/eschabell/bpms-dv-travel-agency-integration-demo/blob/master/docs/demo-images/video-part-3.png?raw=true)](http://vimeo.com/ericschabell/bpms-travel-agency-part-3)
+![Datasource 03](https://raw.githubusercontent.com/eschabell/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/datasoruce-config-03.png)
 
-[![Video part 3](https://github.com/eschabell/bpms-dv-travel-agency-integration-demo/blob/master/docs/demo-images/video-part-4.png?raw=true)](http://vimeo.com/ericschabell/bpms-travel-agency-part-4)
+![Datasource 04](https://raw.githubusercontent.com/eschabell/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/datasoruce-config-04.png)
 
-![Cloud Sign](https://github.com/eschabell/bpms-dv-travel-agency-integration-demo/blob/master/docs/demo-images/cloud-sign.jpg?raw=true)
+![Datasource 05](https://raw.githubusercontent.com/eschabell/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/datasoruce-config-05.png)
 
-![Digital Sign](https://github.com/eschabell/bpms-dv-travel-agency-integration-demo/blob/master/docs/demo-images/announce-sign.jpg?raw=true)
+![Datasource 06](https://raw.githubusercontent.com/eschabell/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/datasoruce-config-06.png)
+
+![Datasource 07](https://raw.githubusercontent.com/eschabell/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/datasoruce-config-07.png)
 
 ![Agency Process](https://github.com/eschabell/bpms-dv-travel-agency-integration-demo/blob/master/docs/demo-images/agency-process.png?raw=true)
 
