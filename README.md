@@ -1,8 +1,8 @@
-JBoss BPM Suite and JDV Travel Agency Integration Demo
-============================================================================
+JBoss BPM Suite and JBoss DV Travel Agency Integration Demo
+===========================================================
 This is an online employee travel booking process project. It contains multiple web services for looking up data for the process
 and rules to calculate pricing. Furthermore, there are several tasks that can be activated to evaluate pricing and to review the
-final booking data before completing the booking.
+final booking data before completing the booking. Updated data results can be viewed directly in JBoss BPM Suite BAM Dashboards.
 
 The backing services make use of disparate data sources integrated and exposed as services for use in this project.
 
