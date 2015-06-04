@@ -35,7 +35,19 @@ Install on your machine
 
     - select Create New Datasource and select radio box Custom Datasource
 
-    - fill in form as show in screenshot:
+    - fill in form as follows:
+
+        - Name: TravelVDB
+
+        - Url:  jdbc:teiid:TravelVDB@mm://localhost:31100
+
+        - DB Driver Class:  select Teiid
+
+        - User:  teiidUser
+
+        - Password:  admin_24
+
+        - Test query:  select 1
     ```
 
 ![Datasource config](https://raw.githubusercontent.com/jbossdemocentral/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/datasoruce-config-03.png)
