@@ -66,13 +66,13 @@ Booking a trip
 
 (Possible flights: Denver <--> NYC and London <--> Edinburgh)
 -------------------------------------------------------------
-  From Destination: London     
+  From Destination: NYC     
 
-  To Destination: Edinburgh
+  To Destination: Denver
 
-  Preferred Date of Departure: 2014-12-20
+  Preferred Date of Departure: 2015-06-07
 
-  Preferred Data of Arrival: 2014-12-29
+  Preferred Data of Arrival: 2015-06-10
 
   Other Details / Notes: [any-text]
   ```
