@@ -48,17 +48,16 @@ Install on your machine
         - Password:  admin_24
 
         - Test query:  select 1
-    ```
 
-![Datasource config](https://raw.githubusercontent.com/jbossdemocentral/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/datasource-config-03.png)
-
-    ```
     - select Check Datasource, if all goes well then Save this configuration.
 
     - select in Workspace pulldown menu top left the entry 'Flight and Hotel Bookings' to view virtualized tables and data.
 
     - monitor these when running process instances.
+
     ```
+
+![Datasource config](https://raw.githubusercontent.com/jbossdemocentral/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/datasource-config-03.png)
 
 ![Datasource tables](https://raw.githubusercontent.com/jbossdemocentral/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/datasource-config-05.png)
 
