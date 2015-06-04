@@ -43,16 +43,17 @@
     <repository>
       <id>jboss-public-repository-group</id>
       <name>JBoss Public Repository Group</name>
-			<url>http://maven.repository.redhat.com/techpreview/all/</url>
+      <url>http://maven.repository.redhat.com/techpreview/all/</url>
+      <layout>default</layout>
       <releases>
         <enabled>true</enabled>
-        <updatePolicy>never</updatePolicy>
+        <updatePolicy>always</updatePolicy>
       </releases>
       <snapshots>
         <enabled>true</enabled>
-        <updatePolicy>daily</updatePolicy>
+        <updatePolicy>always</updatePolicy>
       </snapshots>
     </repository>
   </repositories>
- 
+
 </project>
