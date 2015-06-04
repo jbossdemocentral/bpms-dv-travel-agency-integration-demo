@@ -26,9 +26,31 @@ Install on your machine
     ```
      - login for admin and other roles (u:erics / p:bpmsuite1!)
     ```
+7. Create custom Dashboard entry for monitoring the external JBoss DV virtualized DB views:
 
-Booking a trip to Edinburgh (just one scenario)
------------------------------------------------
+    ```
+    - select menus Dashboards --> Business Dashboards 
+
+    - select Administration -->  External Connections 
+
+    - select Create New Datasource and select radio box Custom Datasource
+
+    - fill in form as show in screenshot:
+    ```
+
+![Datasource config](https://raw.githubusercontent.com/eschabell/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/datasoruce-config-03.png)
+
+    ```
+    - select Check Datasource, if all goes well then Save this configuration.
+
+    - select in Workspace pulldown menu top left the entry 'Flight and Hotel Bookings' to view virtualized tables and data.
+
+    - monitor these when running process instances.
+    ```
+
+
+Booking a trip 
+--------------
 1. Build & deploy project.
 
 2. Start process with following data in start form (either from JBoss BPM Suite dashboard or using external client
@@ -39,9 +61,11 @@ Booking a trip to Edinburgh (just one scenario)
 
   Email Adress: [any-email]
 
-  Number of Travellers: 2  
+  Number of Travellers: 2 
 
-  From Destination: London
+(Possible flights: Denver <--> NYC and London <--> Edinburgh)
+-------------------------------------------------------------
+  From Destination: London     
 
   To Destination: Edinburgh
 
