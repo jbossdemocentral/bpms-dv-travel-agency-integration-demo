@@ -165,8 +165,6 @@ See the tagged releases for the following versions of the product:
 
 ![Datasource 08](https://raw.githubusercontent.com/jbossdemocentral/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/datasource-config-08.png)
 
-![Datasource 08](https://raw.githubusercontent.com/jbossdemocentral/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/datasource-config-09.png)
-
 ![Agency Process](https://github.com/jbossdemocentral/bpms-dv-travel-agency-integration-demo/blob/master/docs/demo-images/agency-process.png?raw=true)
 
 ![Calculate Process](https://github.com/jbossdemocentral/bpms-dv-travel-agency-integration-demo/blob/master/docs/demo-images/calculate-process.png?raw=true)
