@@ -79,8 +79,6 @@ Booking a trip
 
   Number of Travellers: 2 
 
-(Possible flights: Denver <--> NYC and London <--> Edinburgh)
--------------------------------------------------------------
   From Destination: NYC     
 
   To Destination: Denver
