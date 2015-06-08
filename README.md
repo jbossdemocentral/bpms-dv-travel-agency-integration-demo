@@ -152,21 +152,9 @@ See the tagged releases for the following versions of the product:
 
 [![Video](https://raw.githubusercontent.com/jbossdemocentral/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/video.png)](https://vimeo.com/ericschabell/bpms-dv-travel-agency-integration-demo)
 
-![Datasource 01](https://raw.githubusercontent.com/jbossdemocentral/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/datasource-config-01.png)
-
-![Datasource 02](https://raw.githubusercontent.com/jbossdemocentral/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/datasource-config-02.png)
-
-![Datasource 03](https://raw.githubusercontent.com/jbossdemocentral/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/datasource-config-03.png)
-
-![Datasource 04](https://raw.githubusercontent.com/jbossdemocentral/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/datasource-config-04.png)
-
-![Datasource 05](https://raw.githubusercontent.com/jbossdemocentral/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/datasource-config-05.png)
-
 ![Datasource 08](https://raw.githubusercontent.com/jbossdemocentral/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/datasource-config-08.png)
 
-![Agency Process](https://github.com/jbossdemocentral/bpms-dv-travel-agency-integration-demo/blob/master/docs/demo-images/agency-process.png?raw=true)
+![Datasource 06](https://raw.githubusercontent.com/jbossdemocentral/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/datasource-config-06.png)
 
-![Calculate Process](https://github.com/jbossdemocentral/bpms-dv-travel-agency-integration-demo/blob/master/docs/demo-images/calculate-process.png?raw=true)
-
-![Compensation](https://raw.githubusercontent.com/jbossdemocentral/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/compensation-process.png?raw=true)
+![Datasource 10](https://raw.githubusercontent.com/jbossdemocentral/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/datasource-config-10.png)
 
