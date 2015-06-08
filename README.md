@@ -156,5 +156,7 @@ See the tagged releases for the following versions of the product:
 
 ![Datasource 06](https://raw.githubusercontent.com/jbossdemocentral/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/datasource-config-06.png)
 
+![Datasource 09](https://raw.githubusercontent.com/jbossdemocentral/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/datasource-config-09.png)
+
 ![Datasource 10](https://raw.githubusercontent.com/jbossdemocentral/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/datasource-config-10.png)
 
