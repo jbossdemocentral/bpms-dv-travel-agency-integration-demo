@@ -3,15 +3,17 @@ setlocal
 
 set PROJECT_HOME=%~dp0
 set DEMO=JBoss BPM Suite & JDV Travel Agency Integration Demo
-set AUTHORS=Nirja Patel, Shepherd Chengeta,
+set AUTHORS=Nirja Patel, Shepherd Chengeta, Van Halbert,
 set AUTHORS2=Andrew Block, Eric D. Schabell
-set PROJECT=git@github.com:jbossdemocentral/bpms-travel-agency-demo.git
+set PROJECT=git@github.com:jbossdemocentral/bpms-dv-travel-agency-integration-demo.git
 set PRODUCT=JBoss BPM Suite
 set JBOSS_HOME=%PROJECT_HOME%target\jboss-eap-6.4
 set SERVER_DIR=%JBOSS_HOME%\standalone\deployments\
 set SERVER_CONF=%JBOSS_HOME%\standalone\configuration\
 set SERVER_BIN=%JBOSS_HOME%\bin
+set SRC_DIR=%PROJECT_HOME%installs
 
+set DV_PRODUCT=JBoss DV
 set DV_JBOSS_HOME=%PROJECT_HOME%target\dv_6.1
 set DV_SERVER_DIR=%DV_JBOSS_HOME%\standalone\deployments\
 set DV_SERVER_CONF=%DV_JBOSS_HOME%\standalone\configuration\
@@ -31,26 +33,28 @@ REM wipe screen.
 cls
 
 echo.
-echo #################################################################
-echo ##                                                             ##   
-echo ##  Setting up the %DEMO%                          ##
-echo ##                                                             ##   
-echo ##                                                             ##   
-echo ##     ####  ####   #   #      ### #   # ##### ##### #####     ##
-echo ##     #   # #   # # # # #    #    #   #   #     #   #         ##
-echo ##     ####  ####  #  #  #     ##  #   #   #     #   ###       ##
-echo ##     #   # #     #     #       # #   #   #     #   #         ##
-echo ##     ####  #     #     #    ###  ##### #####   #   #####     ##
-echo ##                                                             ##   
-echo ##                                                             ##   
-echo ##  brought to you by,                                         ##   
-echo ##                     %AUTHORS%           ##
-echo ##                       %AUTHORS2%          ##
-echo ##                                                             ##   
-echo ##  %PROJECT%##
-echo ##                                                             ##   
-echo #################################################################
-echo.
+echo #################################################################################
+echo ##                                                                             ##   
+echo ##  Setting up the                                                             ##
+echo ##                                                                             ##   
+echo ##     %DEMO%                     ##
+echo ##                                                                             ##   
+echo ##                                                                             ##   
+echo ##   ####  ####   #   #      ### #   # ##### ##### #####       ####  #    #    ##
+echo ##   #   # #   # # # # #    #    #   #   #     #   #       #   #   # #    #    ##
+echo ##   ####  ####  #  #  #     ##  #   #   #     #   ###    ###  #   # #    #    ##
+echo ##   #   # #     #     #       # #   #   #     #   #       #   #   #  #  #     ##
+echo ##   ####  #     #     #    ###  ##### #####   #   #####       ####    ##      ##
+echo ##                                                                             ##   
+echo ##                                                                             ##   
+echo ##  brought to you by,                                                         ##   
+echo ##                                                                             ##   
+echo ##         %AUTHORS%         ##
+echo ##         %AUTHORS2%                                      ##
+echo ##                                                                             ##
+echo ##  %PROJECT% ##
+echo ##                                                                             ##   
+echo #################################################################################
 
 REM make some checks first before proceeding.	
 if exist %SRC_DIR%\%EAP% (
@@ -115,7 +119,7 @@ if not "%ERRORLEVEL%" == "0" (
 
 echo JBoss DV installer running now...
 echo.
-call java -jar %SRC_DIR%/%DV% %SUPPORT_DIR%\teiidfiles\installation-dv -variablefile %SUPPORT_DIR%\teiidfiles\installation-dv.variables
+call java -jar %SRC_DIR%/%DV% %SUPPORT_DIR%\installation-dv -variablefile %SUPPORT_DIR%\installation-dv.variables
 
 if not "%ERRORLEVEL%" == "0" (
 	echo Error Occurred During JBoss DV Installation!
@@ -184,6 +188,13 @@ xcopy /Y /Q "%SUPPORT_DIR%\teiidfiles\vdb\travel-vdb.xml" "%DV_SERVER_DIR%"
 xcopy /Y /Q "%SUPPORT_DIR%\teiidfiles\vdb\travel-vdb.xml.dodeploy" "%DV_SERVER_DIR%"
 echo.
 
+echo.
+echo - setting up travel data for DV server...
+echo.
+xcopy /Y /Q "%SUPPORT_DIR%\teiidfiles\data\flights-source-schema.sql" "%DV_SERVER_CONF%"
+xcopy /Y /Q "%SUPPORT_DIR%\teiidfiles\data\hotels-source-schema.sql" "%DV_SERVER_CONF%"
+echo.
+
 echo - copy Teiid JDBC Driver ...
 echo.
 xcopy "%DV_JBOSS_HOME%\dataVirtualization\jdbc\teiid-8.*.jar" "%SERVER_DIR%\dashbuilder.war\WEB-INF\lib\"
@@ -192,25 +203,24 @@ echo - copy flight and hotel dashboard files ...
 echo.
 xcopy "%SUPPORT_DIR%\teiidfiles\dashboard\*.*" "%SERVER_DIR%\dashbuilder.war\WEB-INF\deployments\"
 
-
 echo.
-echo ===========================================================================
-echo =                                                                         =
-echo =  First start DV server with:                                            =
-echo =                                                                         =
-echo =   $DV_SERVER_BIN\standalone.bat -Djboss.socket.binding.port-offset=100  =
-echo =                                                                         =
-echo =  You can now start the %PRODUCT% with:                                  =
-echo =                                                                         =
-echo =   %SERVER_BIN%\standalone.bat                                           =
-echo =                                                                         =
-echo =  Login into business central at:                                        =
-echo =                                                                         =
-echo =    http://localhost:8080/business-central  [u:erics / p:bpmsuite1!]     =
-echo =                                                                         =
-echo =  See README.md for general details to run the various demo cases.       =
-echo =                                                                         =
-echo =  %PRODUCT% %VERSION% %DEMO% Setup Complete.                             =
-echo =                                                                         =
-echo ===========================================================================
+echo ===============================================================================
+echo =                                                                             =
+echo =  You can now start the DV server with:                                      =
+echo =                                                                             =
+echo =   %DV_SERVER_BIN%\standalone.sh -Djboss.socket.binding.port-offset=100  =
+echo =                                                                             =
+echo =  You can now start the %PRODUCT% with:                                =
+echo =                                                                             =
+echo =   %SERVER_BIN%\standalone.sh                                  =
+echo =                                                                             =
+echo =  Login into business central at:                                            =
+echo =                                                                             =
+echo =    http://localhost:8080/business-central  [u:erics / p:bpmsuite1!]         =
+echo =                                                                             =
+echo =  See README.md for general details to run the various demo cases.           =
+echo =                                                                             =
+echo =  %DEMO% Setup Complete.        =
+echo =                                                                             =
+echo ===============================================================================
 echo.
