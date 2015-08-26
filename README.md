@@ -120,8 +120,8 @@ Booking a trip
     see [docs/compensation-howto/README-COMPENSATION.md](docs/compensation-howto/README-COMPENSATION.md)
 
 
-Option 2 - Generate containerized install
------------------------------------------
+Option 2 - Generate containerized installation
+----------------------------------------------
 The following steps can be used to configure and run the demo in a container
 
 1. [Download and unzip.](https://github.com/jbossdemocentral/bpms-dv-travel-agency-integration-demo/archive/master.zip)
@@ -171,6 +171,8 @@ Supporting Articles
 Released versions
 -----------------
 See the tagged releases for the following versions of the product:
+
+- v1.1 - JBoss BPM Suite 6.1, JBoss DV 6.1.1, travel agency project using disparate data sources and containerized installation.
 
 - v1.0 - JBoss BPM Suite 6.1, JBoss DV 6.1.1 and travel agency project using disparate data sources.
 
