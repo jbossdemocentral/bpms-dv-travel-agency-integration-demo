@@ -9,7 +9,7 @@ The backing services make use of disparate data sources integrated and exposed a
 Welcome to the JBoss BPM Travel Agency!
 
 
-Install on your machine
+Option 1 - Install on your machine
 ----------------------------------
 1. [Download and unzip.](https://github.com/jbossdemocentral/bpms-dv-travel-agency-integration-demo/archive/master.zip)
 
@@ -118,6 +118,31 @@ Booking a trip
 
 11. For details on demoing the compensation aspects of the Travel Agency demo project, 
     see [docs/compensation-howto/README-COMPENSATION.md](docs/compensation-howto/README-COMPENSATION.md)
+
+
+Option 2 - Generate containerized install
+-----------------------------------------
+The following steps can be used to configure and run the demo in a container
+
+1. [Download and unzip.](https://github.com/jbossdemocentral/bpms-dv-travel-agency-integration-demo/archive/master.zip)
+
+2. Add products installs directory.
+
+3. Copy Dockerfile and .dockerignore files from support/docker directory to the project root.
+
+4. Build demo image
+
+	```
+	docker build -t jbossdemocentral/bpms-dv-travel-agency-integration-demo .
+	```
+5. Start demo container
+
+	```
+	docker run -it -p 9990 -p 9999:9999 -p 8080:8080 -p 31000:31000 -p 10090:10090 -p 10099:10099 -p 8180:8180 jbossdemocentral/bpms-dv-travel-agency-integration-demo
+	```
+6. Follow the instructions from option 1 above replacing localhost with &lt;DOCKER_HOST&gt; with the exception of the *creating a custom Dashboard entry for monitoring the external JBoss DC virtualized DB views* section
+
+Additional information can be found in the jbossdemocentral container [developer repository](https://github.com/jbossdemocentral/docker-developer)
 
 
 Supporting Articles
