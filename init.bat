@@ -27,7 +27,7 @@ set EAP=jboss-eap-6.4.3-installer.jar
 set VERSION=6.2
 
 set DV=jboss-dv-installer-6.1.0.redhat-3.jar
-set DV_VERSION=6.1.0
+set DV_VERSION=6.1
 
 REM wipe screen.
 cls
