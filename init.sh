@@ -11,16 +11,16 @@ SERVER_BIN=$JBOSS_HOME/bin
 SRC_DIR=./installs
 SUPPORT_DIR=./support
 PRJ_DIR=./projects
-BPMS=jboss-bpmsuite-6.1.0.GA-installer.jar
-EAP=jboss-eap-6.4.0-installer.jar
+BPMS=jboss-bpmsuite-6.2.0.GA-installer.jar
+EAP=jboss-eap-6.4.3-installer.jar
 DV=jboss-dv-installer-6.1.0.redhat-3.jar
 DV_PRODUCT="JBoss DV"
 DV_JBOSS_HOME=./target/dv_6.1
 DV_SERVER_DIR=$DV_JBOSS_HOME/standalone/deployments/
 DV_SERVER_CONF=$DV_JBOSS_HOME/standalone/configuration/
 DV_SERVER_BIN=$DV_JBOSS_HOME/bin
-DV_VERSION=6.1.0
-VERSION=6.1
+DV_VERSION=6.1
+VERSION=6.2
 
 
 # wipe screen.

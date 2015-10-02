@@ -174,6 +174,8 @@ Released versions
 -----------------
 See the tagged releases for the following versions of the product:
 
+- v1.2 - JBoss BPM Suite 6.2.0, JBoss EAP 6.4.3, JBoss DV 6.1.1 and travel agency project installed using disparate data sources.
+
 - v1.1 - JBoss BPM Suite 6.1, JBoss DV 6.1.1, travel agency project using disparate data sources and containerized installation.
 
 - v1.0 - JBoss BPM Suite 6.1, JBoss DV 6.1.1 and travel agency project using disparate data sources.

@@ -22,9 +22,9 @@ set DV_SRC_DIR=%PROJECT_HOME%installs
 
 set SUPPORT_DIR=%PROJECT_HOME%support
 set PRJ_DIR=%PROJECT_HOME%projects
-set BPMS=jboss-bpmsuite-6.1.0.GA-installer.jar
-set EAP=jboss-eap-6.4.0-installer.jar
-set VERSION=6.1
+set BPMS=jboss-bpmsuite-6.2.0.GA-installer.jar
+set EAP=jboss-eap-6.4.3-installer.jar
+set VERSION=6.2
 
 set DV=jboss-dv-installer-6.1.0.redhat-3.jar
 set DV_VERSION=6.1.0
