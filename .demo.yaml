@@ -1,0 +1,11 @@
+id: jbossdemocentral-bpms-dv-travel-agency-integration
+title: An online employee travel booking process project with backing services make use of disparate data sources integrated and exposed as services.
+github_repo_url: https://github.com/jbossdemocentral/bpms-dv-travel-agency-integration-demo
+technologies:
+  - JBoss EAP
+  - JBoss BPM Suite
+  - JBoss DataVirt
+summary: This is an online employee travel booking process project. It contains multiple web services for looking up data for the process and rules to calculate pricing. Furthermore, there are several tasks that can be activated to evaluate pricing and to review the final booking data before completing the booking. Updated data results can be viewed directly in JBoss BPM Suite BAM Dashboards. The backing services make use of disparate data sources integrated and exposed as services for use in this project.
+level: Intermediate
+product: bpmsuite, datavirt
+author: Niraj Patel, Shepherd Chengeta, Van Halbert, Andrew Block, Eric D. Schabell
