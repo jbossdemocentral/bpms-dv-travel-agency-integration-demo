@@ -1,4 +1,4 @@
-JBoss BPM Suite and JBoss DV Travel Agency Integration Demo
+JBoss BPM Suite and JBoss DataVirt Travel Agency Integration Demo
 ===========================================================
 This is an online employee travel booking process project. It contains multiple web services for looking up data for the process
 and rules to calculate pricing. Furthermore, there are several tasks that can be activated to evaluate pricing and to review the
@@ -17,7 +17,7 @@ Option 1 - Install on your machine
 
 3. Run 'init.sh' or 'init.bat' file. 'init.bat' must be run with Administrative privileges.
 
-4. Start JBoss DV Server by running 'standalone.sh  -Djboss.socket.binding.port-offset=100' or 'standalone.bat -Djboss.socket.binding.port-offset=100' in the <path-to-project>/target/jboss-dv-6.2/bin directory
+4. Start JBoss DataVirt Server by running 'standalone.sh  -Djboss.socket.binding.port-offset=100' or 'standalone.bat -Djboss.socket.binding.port-offset=100' in the <path-to-project>/target/jboss-dv-6.2/bin directory
 
 5. Start JBoss BPMS Server by running 'standalone.sh' or 'standalone.bat' in the <path-to-project>/target/jboss-bpmsuite-6.1/bin directory.
 
@@ -26,7 +26,7 @@ Option 1 - Install on your machine
     ```
      - login for admin and other roles (u:erics / p:bpmsuite1!)
     ```
-7. Create custom Dashboard entry for monitoring the external JBoss DV virtualized DB views:
+7. Create custom Dashboard entry for monitoring the external JBoss DataVirt virtualized DB views:
 
     ```
     - select menus Dashboards --> Business Dashboards 
@@ -174,11 +174,11 @@ Released versions
 -----------------
 See the tagged releases for the following versions of the product:
 
-- v1.2 - JBoss BPM Suite 6.1, JBoss DV 6.2.0 and travel agency project using disparate data sources.
+- v1.2 - JBoss BPM Suite 6.1, JBoss DataVirt 6.2 and travel agency project using disparate data sources.
 
-- v1.1 - JBoss BPM Suite 6.1, JBoss DV 6.1.1, travel agency project using disparate data sources and containerized installation.
+- v1.1 - JBoss BPM Suite 6.1, JBoss DataVirt 6.1.1, travel agency project using disparate data sources and containerized installation.
 
-- v1.0 - JBoss BPM Suite 6.1, JBoss DV 6.1.1 and travel agency project using disparate data sources.
+- v1.0 - JBoss BPM Suite 6.1, JBoss DataVirt 6.1.1 and travel agency project using disparate data sources.
 
 
 [![Video](https://raw.githubusercontent.com/jbossdemocentral/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/video.png)](https://vimeo.com/ericschabell/bpms-dv-travel-agency-integration-demo)
