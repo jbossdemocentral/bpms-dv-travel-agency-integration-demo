@@ -194,7 +194,6 @@ echo "  - making sure standalone.sh for DV server is executable..."
 echo
 chmod u+x $DV_JBOSS_HOME/bin/standalone.sh
 
-echo
 echo "  - setting up standalone.xml configuration adjustments for DV..."
 echo
 cp $SUPPORT_DIR/teiidfiles/standalone.xml $DV_SERVER_CONF

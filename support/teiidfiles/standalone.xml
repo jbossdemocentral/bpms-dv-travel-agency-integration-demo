@@ -99,15 +99,15 @@
                 <queue-length value="1024"/>
                 <overflow-action value="block"/>
                 <subhandlers>
-                    <handler name="TEIID_JPA_LOG"/>
+                    <handler name="TEIID_COMMAND_LOG"/>
                 </subhandlers>
             </async-handler>
-            <async-handler name="TEIID_AUDIT_LOG">
+            <async-handler name="TEIID_AUDIT_LOG_ASYNC">
                 <level name="DEBUG"/>
                 <queue-length value="1024"/>
                 <overflow-action value="block"/>
                 <subhandlers>
-                    <handler name="TEIID_JPA_LOG"/>
+                    <handler name="TEIID_AUDIT_LOG"/>
                 </subhandlers>
             </async-handler>
             <console-handler name="CONSOLE">
@@ -116,14 +116,29 @@
                     <named-formatter name="COLOR-PATTERN"/>
                 </formatter>
             </console-handler>
-						<custom-handler name="TEIID_JPA_LOG" class="org.teiid.logger.DatabaseAppender" module="org.jboss.teiid.extensions">
-                <level name="DEBUG"/>
-            </custom-handler>
             <periodic-rotating-file-handler name="FILE" autoflush="true">
                 <formatter>
                     <named-formatter name="PATTERN"/>
                 </formatter>
                 <file relative-to="jboss.server.log.dir" path="server.log"/>
+                <suffix value=".yyyy-MM-dd"/>
+                <append value="true"/>
+            </periodic-rotating-file-handler>
+            <periodic-rotating-file-handler name="TEIID_COMMAND_LOG">
+                <level name="DEBUG"/>
+                <formatter>
+                    <pattern-formatter pattern="%d{HH:mm:ss,SSS} %-5p [%c] (%t) %X{teiid-session} %s%E%n"/>
+                </formatter>
+                <file relative-to="jboss.server.log.dir" path="teiid-command.log"/>
+                <suffix value=".yyyy-MM-dd"/>
+                <append value="true"/>
+            </periodic-rotating-file-handler>
+            <periodic-rotating-file-handler name="TEIID_AUDIT_LOG">
+                <level name="DEBUG"/>
+                <formatter>
+                    <pattern-formatter pattern="%d{HH:mm:ss,SSS} %-5p [%c] (%t) %X{teiid-session} %s%E%n"/>
+                </formatter>
+                <file relative-to="jboss.server.log.dir" path="teiid-audit.log"/>
                 <suffix value=".yyyy-MM-dd"/>
                 <append value="true"/>
             </periodic-rotating-file-handler>
@@ -144,6 +159,21 @@
             </logger>
             <logger category="jacorb.config">
                 <level name="ERROR"/>
+            </logger>
+            <logger category="org.teiid">
+                <level name="INFO"/>
+            </logger>
+            <logger category="org.teiid.COMMAND_LOG" use-parent-handlers="false">
+                <level name="DEBUG"/>
+                <handlers>
+                    <handler name="TEIID_COMMAND_LOG_ASYNC"/>
+                </handlers>
+            </logger>
+            <logger category="org.teiid.AUDIT_LOG" use-parent-handlers="false">
+                <level name="DEBUG"/>
+                <handlers>
+                    <handler name="TEIID_AUDIT_LOG_ASYNC"/>
+                </handlers>
             </logger>
             <root-logger>
                 <level name="INFO"/>
@@ -188,30 +218,22 @@
                         <password>${VAULT::modeshape::modeshape.password::1}</password>
                     </security>
                 </datasource>
-								<datasource jndi-name="java:/teiid-log-ds" pool-name="teiid-log-ds" enabled="true" use-java-context="true">
-                    <connection-url>jdbc:h2:file:${jboss.server.data.dir}/teiid-logging/teiid-logging-ds;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1</connection-url>
-                    <driver>h2</driver>
-                    <security>
-                        <user-name>sa</user-name>
-                        <password>${VAULT::teiid::dblogging.password::1}</password>
-                    </security>
-                </datasource>
 								<datasource jndi-name="java:/flights_source" pool-name="h2-flight" enabled="true" use-java-context="true">
-                    <connection-url>jdbc:h2:file:${jboss.server.data.dir}/flight_data/flight-source-ds;INIT=RUNSCRIPT FROM '${jboss.server.config.dir}/flights-source-schema.sql';</connection-url>
-                    <driver>h2</driver>
-                    <security>
-                        <user-name>sa</user-name>
-                        <password>sa</password>
-                    </security>
-                </datasource>
-                <datasource jndi-name="java:/hotels_source" pool-name="h2-hotel" enabled="true" use-java-context="true">
-                    <connection-url>jdbc:h2:file:${jboss.server.data.dir}/hotel_data/hotel-source-ds;INIT=RUNSCRIPT FROM '${jboss.server.config.dir}/hotels-source-schema.sql';</connection-url>
-                    <driver>h2</driver>
-                    <security>
-                        <user-name>sa</user-name>
-                        <password>sa</password>
-                    </security>
-                </datasource>
+									  <connection-url>jdbc:h2:file:${jboss.server.data.dir}/flight_data/flight-source-ds;INIT=RUNSCRIPT FROM '${jboss.server.config.dir}/flights-source-schema.sql';</connection-url>
+										<driver>h2</driver>
+										<security>
+											<user-name>sa</user-name>
+											<password>sa</password>
+										</security>
+								</datasource>
+								<datasource jndi-name="java:/hotels_source" pool-name="h2-hotel" enabled="true" use-java-context="true">
+										<connection-url>jdbc:h2:file:${jboss.server.data.dir}/hotel_data/hotel-source-ds;INIT=RUNSCRIPT FROM '${jboss.server.config.dir}/hotels-source-schema.sql';</connection-url>
+										<driver>h2</driver>
+										<security>
+											<user-name>sa</user-name>
+											<password>sa</password>
+										</security>
+								</datasource>
                 <drivers>
                     <driver name="h2" module="com.h2database.h2">
                         <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
