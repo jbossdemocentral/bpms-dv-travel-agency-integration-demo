@@ -17,9 +17,9 @@ Option 1 - Install on your machine
 
 3. Run 'init.sh' or 'init.bat' file. 'init.bat' must be run with Administrative privileges.
 
-4. Start JBoss DV Server by running 'standalone.sh  -Djboss.socket.binding.port-offset=100' or 'standalone.bat -Djboss.socket.binding.port-offset=100' in the <path-to-project>/target/dv_6.1/bin directory
+4. Start JBoss DV Server by running 'standalone.sh  -Djboss.socket.binding.port-offset=100' or 'standalone.bat -Djboss.socket.binding.port-offset=100' in the <path-to-project>/target/jboss-dv-6.2/bin directory
 
-5. Start JBoss BPMS Server by running 'standalone.sh' or 'standalone.bat' in the <path-to-project>/target/jboss-eap-6.4/bin directory.
+5. Start JBoss BPMS Server by running 'standalone.sh' or 'standalone.bat' in the <path-to-project>/target/jboss-bpmsuite-6.1/bin directory.
 
 6. Login to [http://localhost:8080/business-central](http://localhost:8080/business-central)
 
@@ -173,6 +173,8 @@ Supporting Articles
 Released versions
 -----------------
 See the tagged releases for the following versions of the product:
+
+- v1.2 - JBoss BPM Suite 6.1, JBoss DV 6.2.0 and travel agency project using disparate data sources.
 
 - v1.1 - JBoss BPM Suite 6.1, JBoss DV 6.1.1, travel agency project using disparate data sources and containerized installation.
 

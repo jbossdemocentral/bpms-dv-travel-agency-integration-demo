@@ -4,7 +4,7 @@ AUTHORS="Niraj Patel, Shepherd Chengeta, Van Halbert,"
 AUTHORS2="Andrew Block, Eric D. Schabell"
 PROJECT="git@github.com:jbossdemocentral/bpms-dv-travel-agency-integration-demo.git"
 PRODUCT="JBoss BPM Suite"
-JBOSS_HOME=./target/jboss-eap-6.4
+JBOSS_HOME=./target/jboss-bpmsuite-6.1
 SERVER_DIR=$JBOSS_HOME/standalone/deployments/
 SERVER_CONF=$JBOSS_HOME/standalone/configuration/
 SERVER_BIN=$JBOSS_HOME/bin
@@ -13,13 +13,15 @@ SUPPORT_DIR=./support
 PRJ_DIR=./projects
 BPMS=jboss-bpmsuite-6.1.0.GA-installer.jar
 EAP=jboss-eap-6.4.0-installer.jar
-DV=jboss-dv-installer-6.1.0.redhat-3.jar
-DV_PRODUCT="JBoss DV"
-DV_JBOSS_HOME=./target/dv_6.1
+EAP_PATCH=jboss-eap-6.4.3-patch.zip
+DV=jboss-dv-installer-6.2.0.redhat-2.jar
+DV_PATCH_DIR=jboss-eap-6.4.3.CP/misc
+DV_PRODUCT="JBoss DataVirt"
+DV_JBOSS_HOME=./target/jboss-dv-6.2
 DV_SERVER_DIR=$DV_JBOSS_HOME/standalone/deployments/
 DV_SERVER_CONF=$DV_JBOSS_HOME/standalone/configuration/
 DV_SERVER_BIN=$DV_JBOSS_HOME/bin
-DV_VERSION=6.1.0
+DV_VERSION=6.2.0
 VERSION=6.1
 
 
@@ -64,6 +66,16 @@ else
 	exit
 fi
 
+if [ -r $SRC_DIR/$EAP_PATCH ] || [ -L $SRC_DIR/$EAP_PATCH ]; then
+	echo EAP Product patch sources are present...
+	echo
+else
+	echo Need to download $EAP_PATCH package from the Customer Portal 
+	echo and place it in the $SRC_DIR directory to proceed...
+	echo
+	exit
+fi
+
 if [ -r $SRC_DIR/$BPMS ] || [ -L $SRC_DIR/$BPMS ]; then
 		echo BPMS Suite sources are present...
 		echo
@@ -103,6 +115,7 @@ if [ $? -ne 0 ]; then
 	exit
 fi
 
+echo
 echo "JBoss BPM Suite installer running now..."
 echo
 java -jar $SRC_DIR/$BPMS $SUPPORT_DIR/installation-bpms -variablefile $SUPPORT_DIR/installation-bpms.variables
@@ -112,6 +125,29 @@ if [ $? -ne 0 ]; then
 	exit
 fi
 
+echo
+echo "JBoss EAP for DataVirt installer running now..."
+echo
+java -jar $SRC_DIR/$EAP $SUPPORT_DIR/installation-dv-eap -variablefile $SUPPORT_DIR/installation-dv-eap.variables
+
+if [ $? -ne 0 ]; then
+	echo
+	echo Error occurred during JBoss EAP installation!
+	exit
+fi
+
+echo
+echo "Patching EAP for DataVirt now..."
+echo
+mkdir patch; cd patch
+unzip -q ../$SRC_DIR/$EAP_PATCH
+unzip -q jboss-eap-6.4.3.CP.zip
+cp $DV_PATCH_DIR/bin/client/jboss-cli* ../$DV_SERVER_BIN/client
+cp $DV_PATCH_DIR/version.txt ../$DV_JBOSS_HOME
+cp $DV_PATCH_DIR/jboss-modules.jar ../$DV_JBOSS_HOME
+cd ..; rm -rf patch
+
+echo
 echo "JBoss DV installer running now..."
 echo
 java -jar $SRC_DIR/$DV $SUPPORT_DIR/installation-dv -variablefile $SUPPORT_DIR/installation-dv.variables
@@ -121,6 +157,7 @@ if [ $? -ne 0 ]; then
 	exit
 fi
 
+echo
 echo "  - enabling demo accounts role setup in application-roles.properties file..."
 echo
 cp $SUPPORT_DIR/application-roles.properties $SERVER_CONF
@@ -191,24 +228,24 @@ cp $SUPPORT_DIR/teiidfiles/dashboard/* $SERVER_DIR/dashbuilder.war/WEB-INF/deplo
 echo
 
 echo
-echo "==============================================================================="
-echo "=                                                                             ="
+echo "====================================================================================="
+echo "=                                                                                   ="
 echo "=  You can now start the $DV_PRODUCT with:                                       ="
-echo "=                                                                             ="
+echo "=                                                                                   ="
 echo "=   $DV_SERVER_BIN/standalone.sh -Djboss.socket.binding.port-offset=100  ="
-echo "=                                                                             ="
-echo "=  You can now start the $PRODUCT with:                                ="
-echo "=                                                                             ="
-echo "=   $SERVER_BIN/standalone.sh                                  ="
-echo "=                                                                             ="
-echo "=  Login into business central at:                                            ="
-echo "=                                                                             ="
-echo "=    http://localhost:8080/business-central  (u:erics / p:bpmsuite1!)         ="
-echo "=                                                                             ="
-echo "=  See README.md for general details to run the various demo cases.           ="
-echo "=                                                                             ="
-echo "=  $DEMO Setup Complete.        ="
-echo "=                                                                             ="
-echo "==============================================================================="
+echo "=                                                                                   ="
+echo "=  You can now start the $PRODUCT with:                                      ="
+echo "=                                                                                   ="
+echo "=   $SERVER_BIN/standalone.sh                                   ="
+echo "=                                                                                   ="
+echo "=  Login into business central at:                                                  ="
+echo "=                                                                                   ="
+echo "=    http://localhost:8080/business-central  (u:erics / p:bpmsuite1!)               ="
+echo "=                                                                                   ="
+echo "=  See README.md for general details to run the various demo cases.                 ="
+echo "=                                                                                   ="
+echo "=  $DEMO Setup Complete.              ="
+echo "=                                                                                   ="
+echo "====================================================================================="
 echo
 

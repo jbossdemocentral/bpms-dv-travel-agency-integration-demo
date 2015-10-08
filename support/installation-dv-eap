@@ -4,7 +4,7 @@
 <productVersion>6.4.0</productVersion>
 <com.izforge.izpack.panels.HTMLLicencePanel id="HTMLLicencePanel"/>
 <com.izforge.izpack.panels.TargetPanel id="DirectoryPanel">
-<installpath>target/jboss-bpmsuite-6.1</installpath>
+<installpath>target/jboss-dv-6.2</installpath>
 </com.izforge.izpack.panels.TargetPanel>
 <com.izforge.izpack.panels.TreePacksPanel id="TreePacksPanel">
 <pack index="0" name="Red Hat JBoss Enterprise Application Platform" selected="true"/>
@@ -22,7 +22,7 @@
 </com.izforge.izpack.panels.TreePacksPanel>
 <com.izforge.izpack.panels.UserInputPanel id="CreateUserPanel">
 <userInput>
-<entry key="adminUser" value="admin"/>
+<entry key="adminUser" value="erics"/>
 <entry autoPrompt="true" key="adminPassword"/>
 </userInput>
 </com.izforge.izpack.panels.UserInputPanel>
