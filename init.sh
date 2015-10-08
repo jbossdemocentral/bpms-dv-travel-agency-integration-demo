@@ -19,7 +19,7 @@ DV_JBOSS_HOME=./target/jboss-dv-6.2
 DV_SERVER_DIR=$DV_JBOSS_HOME/standalone/deployments/
 DV_SERVER_CONF=$DV_JBOSS_HOME/standalone/configuration/
 DV_SERVER_BIN=$DV_JBOSS_HOME/bin
-DV_VERSION=6.2.0
+DV_VERSION=6.2
 VERSION=6.1
 
 
@@ -59,16 +59,6 @@ if [ -r $SRC_DIR/$EAP ] || [ -L $SRC_DIR/$EAP ]; then
 	echo
 else
 	echo Need to download $EAP package from the Customer Portal 
-	echo and place it in the $SRC_DIR directory to proceed...
-	echo
-	exit
-fi
-
-if [ -r $SRC_DIR/$EAP_PATCH ] || [ -L $SRC_DIR/$EAP_PATCH ]; then
-	echo EAP Product patch sources are present...
-	echo
-else
-	echo Need to download $EAP_PATCH package from the Customer Portal 
 	echo and place it in the $SRC_DIR directory to proceed...
 	echo
 	exit
@@ -130,7 +120,7 @@ java -jar $SRC_DIR/$EAP $SUPPORT_DIR/installation-dv-eap -variablefile $SUPPORT_
 
 if [ $? -ne 0 ]; then
 	echo
-	echo Error occurred during JBoss EAP installation!
+	echo Error occurred during JBoss EAP for DataVirt installation!
 	exit
 fi
 
