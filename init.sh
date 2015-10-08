@@ -134,17 +134,6 @@ if [ $? -ne 0 ]; then
 	exit
 fi
 
-#echo
-#echo "Patching EAP for DataVirt now..."
-#echo
-#mkdir patch; cd patch
-#unzip -q ../$SRC_DIR/$EAP_PATCH
-#unzip -q jboss-eap-6.4.3.CP.zip
-#cp $DV_PATCH_DIR/bin/client/jboss-cli* ../$DV_SERVER_BIN/client
-#cp $DV_PATCH_DIR/version.txt ../$DV_JBOSS_HOME
-#cp $DV_PATCH_DIR/jboss-modules.jar ../$DV_JBOSS_HOME
-#cd ..; rm -rf patch
-
 echo
 echo "JBoss DV installer running now..."
 echo
