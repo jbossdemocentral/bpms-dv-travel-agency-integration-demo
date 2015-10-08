@@ -7,14 +7,14 @@ set AUTHORS=Nirja Patel, Shepherd Chengeta, Van Halbert,
 set AUTHORS2=Andrew Block, Eric D. Schabell
 set PROJECT=git@github.com:jbossdemocentral/bpms-dv-travel-agency-integration-demo.git
 set PRODUCT=JBoss BPM Suite
-set JBOSS_HOME=%PROJECT_HOME%target\jboss-eap-6.4
+set JBOSS_HOME=%PROJECT_HOME%target\jboss-bpmsuite-6.1
 set SERVER_DIR=%JBOSS_HOME%\standalone\deployments\
 set SERVER_CONF=%JBOSS_HOME%\standalone\configuration\
 set SERVER_BIN=%JBOSS_HOME%\bin
 set SRC_DIR=%PROJECT_HOME%installs
 
 set DV_PRODUCT=JBoss DV
-set DV_JBOSS_HOME=%PROJECT_HOME%target\dv_6.1
+set DV_JBOSS_HOME=%PROJECT_HOME%target\jboss-dv-6.2
 set DV_SERVER_DIR=%DV_JBOSS_HOME%\standalone\deployments\
 set DV_SERVER_CONF=%DV_JBOSS_HOME%\standalone\configuration\
 set DV_SERVER_BIN=%DV_JBOSS_HOME%\bin
@@ -26,8 +26,8 @@ set BPMS=jboss-bpmsuite-6.1.0.GA-installer.jar
 set EAP=jboss-eap-6.4.0-installer.jar
 set VERSION=6.1
 
-set DV=jboss-dv-installer-6.1.0.redhat-3.jar
-set DV_VERSION=6.1.0
+set DV=jboss-dv-installer-6.2.0.redhat-3.jar
+set DV_VERSION=6.2
 
 REM wipe screen.
 cls
@@ -115,6 +115,17 @@ if not "%ERRORLEVEL%" == "0" (
 	echo Error Occurred During %PRODUCT% Installation!
 	echo.
 	GOTO :EOF
+)
+
+echo JBoss EAP for DataVirt installer running now...
+echo.
+call java -jar %SRC_DIR%/%EAP% %SUPPORT_DIR%\installation-dv-eap -variablefile %SUPPORT_DIR%\installation-dv-eap.variables
+
+if not "%ERRORLEVEL%" == "0" (
+  echo.
+  echo Error Occurred During JBoss EAP for DataVirt Installation!
+  echo.
+  GOTO :EOF
 )
 
 echo JBoss DV installer running now...
