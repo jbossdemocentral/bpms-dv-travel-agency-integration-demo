@@ -13,9 +13,7 @@ SUPPORT_DIR=./support
 PRJ_DIR=./projects
 BPMS=jboss-bpmsuite-6.1.0.GA-installer.jar
 EAP=jboss-eap-6.4.0-installer.jar
-EAP_PATCH=jboss-eap-6.4.3-patch.zip
-DV=jboss-dv-installer-6.2.0.redhat-2.jar
-DV_PATCH_DIR=jboss-eap-6.4.3.CP/misc
+DV=jboss-dv-installer-6.2.0.redhat-3.jar
 DV_PRODUCT="JBoss DataVirt"
 DV_JBOSS_HOME=./target/jboss-dv-6.2
 DV_SERVER_DIR=$DV_JBOSS_HOME/standalone/deployments/
@@ -136,16 +134,16 @@ if [ $? -ne 0 ]; then
 	exit
 fi
 
-echo
-echo "Patching EAP for DataVirt now..."
-echo
-mkdir patch; cd patch
-unzip -q ../$SRC_DIR/$EAP_PATCH
-unzip -q jboss-eap-6.4.3.CP.zip
-cp $DV_PATCH_DIR/bin/client/jboss-cli* ../$DV_SERVER_BIN/client
-cp $DV_PATCH_DIR/version.txt ../$DV_JBOSS_HOME
-cp $DV_PATCH_DIR/jboss-modules.jar ../$DV_JBOSS_HOME
-cd ..; rm -rf patch
+#echo
+#echo "Patching EAP for DataVirt now..."
+#echo
+#mkdir patch; cd patch
+#unzip -q ../$SRC_DIR/$EAP_PATCH
+#unzip -q jboss-eap-6.4.3.CP.zip
+#cp $DV_PATCH_DIR/bin/client/jboss-cli* ../$DV_SERVER_BIN/client
+#cp $DV_PATCH_DIR/version.txt ../$DV_JBOSS_HOME
+#cp $DV_PATCH_DIR/jboss-modules.jar ../$DV_JBOSS_HOME
+#cd ..; rm -rf patch
 
 echo
 echo "JBoss DV installer running now..."
