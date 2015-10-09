@@ -23,15 +23,18 @@ ENV DV_VERSION_MICRO 0
 ENV DV_VERSION_BUILD redhat-3
 
 # ADD Installation Files
-COPY support/installation-eap support/installation-eap.variables support/installation-bpms support/installation-bpms.variables support/installation-dv support/installation-dv.variables installs/jboss-eap-$EAP_VERSION_MAJOR.$EAP_VERSION_MINOR.$EAP_VERSION_MICRO-installer.jar installs/jboss-bpmsuite-$BPMS_VERSION_MAJOR.$BPMS_VERSION_MINOR.$BPMS_VERSION_MICRO.GA-installer.jar installs/jboss-dv-installer-$DV_VERSION_MAJOR.$DV_VERSION_MINOR.$DV_VERSION_MICRO.$DV_VERSION_BUILD.jar /opt/jboss/
+COPY support/installation-eap support/installation-eap.variables support/installation-bpms support/installation-bpms.variables support/installation-dv-eap support/installation-dv-eap.variables support/installation-dv support/installation-dv.variables installs/jboss-eap-$EAP_VERSION_MAJOR.$EAP_VERSION_MINOR.$EAP_VERSION_MICRO-installer.jar installs/jboss-bpmsuite-$BPMS_VERSION_MAJOR.$BPMS_VERSION_MINOR.$BPMS_VERSION_MICRO.GA-installer.jar installs/jboss-dv-installer-$DV_VERSION_MAJOR.$DV_VERSION_MINOR.$DV_VERSION_MICRO.$DV_VERSION_BUILD.jar /opt/jboss/
 
 # Configure project prerequisites and run installer and cleanup installation components
 RUN sed -i "s:<installpath>.*</installpath>:<installpath>$BPMS_HOME</installpath>:" /opt/jboss/installation-eap \
   && java -jar /opt/jboss/jboss-eap-$EAP_VERSION_MAJOR.$EAP_VERSION_MINOR.$EAP_VERSION_MICRO-installer.jar /opt/jboss/installation-eap -variablefile /opt/jboss/installation-eap.variables \
-  && rm -rf /opt/jboss/jboss-eap-$EAP_VERSION_MAJOR.$EAP_VERSION_MINOR.$EAP_VERSION_MICRO-installer.jar /opt/jboss/installation-eap /opt/jboss/installation-eap.variables \
+  && rm -rf /opt/jboss/installation-eap /opt/jboss/installation-eap.variables \
   && sed -i "s:<installpath>.*</installpath>:<installpath>$BPMS_HOME</installpath>:" /opt/jboss/installation-bpms \
   && java -jar /opt/jboss/jboss-bpmsuite-$BPMS_VERSION_MAJOR.$BPMS_VERSION_MINOR.$BPMS_VERSION_MICRO.GA-installer.jar  /opt/jboss/installation-bpms -variablefile /opt/jboss/installation-bpms.variables \
   && rm -rf /opt/jboss/jboss-bpmsuite-$BPMS_VERSION_MAJOR.$BPMS_VERSION_MINOR.$BPMS_VERSION_MICRO.GA-installer.jar /opt/jboss/installation-bpms /opt/jboss/installation-bpms.variables $BPMS_HOME/standalone/configuration/standalone_xml_history/* \
+  && sed -i "s:<installpath>.*</installpath>:<installpath>$DV_HOME</installpath>:" /opt/jboss/installation-dv-eap \
+  && java -jar /opt/jboss/jboss-eap-$EAP_VERSION_MAJOR.$EAP_VERSION_MINOR.$EAP_VERSION_MICRO-installer.jar /opt/jboss/installation-dv-eap -variablefile /opt/jboss/installation-dv-eap.variables \
+  && rm -rf /opt/jboss/jboss-eap-$EAP_VERSION_MAJOR.$EAP_VERSION_MINOR.$EAP_VERSION_MICRO-installer.jar /opt/jboss/installation-dv-eap /opt/jboss/installation-dv-eap.variables \
   && sed -i "s:<installpath>.*</installpath>:<installpath>$DV_HOME</installpath>:" /opt/jboss/installation-dv \
   && java -jar /opt/jboss/jboss-dv-installer-$DV_VERSION_MAJOR.$DV_VERSION_MINOR.$DV_VERSION_MICRO.$DV_VERSION_BUILD.jar  /opt/jboss/installation-dv -variablefile /opt/jboss/installation-dv.variables \
   && rm -rf jboss-dv-installer-$DV_VERSION_MAJOR.$DV_VERSION_MINOR.$DV_VERSION_MICRO.$DV_VERSION_BUILD.jar /opt/jboss/installation-dv /opt/jboss/installation-dv.variables $DV_HOME/standalone/configuration/standalone_xml_history/*

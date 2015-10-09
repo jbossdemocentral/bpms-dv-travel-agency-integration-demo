@@ -31,33 +31,34 @@ set DV_VERSION=6.2
 
 REM wipe screen.
 cls
-
+GOTO :README
 echo.
+echo ###############################################################################
+echo ##                                                                           ##
+echo ##  Setting up the                                                           ##
+echo ##                                                                           ##
+echo ##     %DEMO%                                                      ##
+echo ##                                                                           ##
+echo ##                                                                           ##
+echo ##   ####  ####   #   #      ### #   # ##### ##### #####       ####  #    #  ##
+echo ##   #   # #   # # # # #    #    #   #   #     #   #       #   #   # #    #  ##
+echo ##   ####  ####  #  #  #     ##  #   #   #     #   ###    ###  #   # #    #  ##
+echo ##   #   # #     #     #       # #   #   #     #   #       #   #   #  #  #   ##
+echo ##   ####  #     #     #    ###  ##### #####   #   #####       ####    ##    ##
+echo ##                                                                           ##
+echo ##                                                                           ##
+echo ##  brought to you by,                                                       ##
+echo ##                                                                           ##
+echo ##         %AUTHORS%                      ##
+echo ##         %AUTHORS2%                                    ##
+echo ##                                                                           ##
+echo ##  %PROJECT% 
+echo ##                                                                           ##
 echo #################################################################################
-echo ##                                                                             ##   
-echo ##  Setting up the                                                             ##
-echo ##                                                                             ##   
-echo ##     %DEMO%                     ##
-echo ##                                                                             ##   
-echo ##                                                                             ##   
-echo ##   ####  ####   #   #      ### #   # ##### ##### #####       ####  #    #    ##
-echo ##   #   # #   # # # # #    #    #   #   #     #   #       #   #   # #    #    ##
-echo ##   ####  ####  #  #  #     ##  #   #   #     #   ###    ###  #   # #    #    ##
-echo ##   #   # #     #     #       # #   #   #     #   #       #   #   #  #  #     ##
-echo ##   ####  #     #     #    ###  ##### #####   #   #####       ####    ##      ##
-echo ##                                                                             ##   
-echo ##                                                                             ##   
-echo ##  brought to you by,                                                         ##   
-echo ##                                                                             ##   
-echo ##         %AUTHORS%         ##
-echo ##         %AUTHORS2%                                      ##
-echo ##                                                                             ##
-echo ##  %PROJECT% ##
-echo ##                                                                             ##   
-echo #################################################################################
+echo.
 
 REM make some checks first before proceeding.	
-if exist %SRC_DIR%\%EAP% (
+if exist "%SRC_DIR%\%EAP%" (
         echo Product sources are present...
         echo.
 ) else (
@@ -67,7 +68,7 @@ if exist %SRC_DIR%\%EAP% (
         GOTO :EOF
 )
 
-if exist %SRC_DIR%\%BPMS% (
+if exist "%SRC_DIR%\%BPMS%" (
         echo BPMS Product sources are present...
         echo.
 ) else (
@@ -77,7 +78,7 @@ if exist %SRC_DIR%\%BPMS% (
         GOTO :EOF
 )
 
-if exist %SRC_DIR%\%DV% (
+if exist "%SRC_DIR%\%DV%" (
         echo DV Product sources are present...
         echo.
 ) else (
@@ -88,7 +89,7 @@ if exist %SRC_DIR%\%DV% (
 )
 
 REM Remove the old JBoss instance, if it exists.
-if exist %JBOSS_HOME% (
+if exist "%JBOSS_HOME%" (
          echo - existing JBoss product install removed...
          echo.
          rmdir /s /q target"
@@ -97,7 +98,7 @@ if exist %JBOSS_HOME% (
 REM Run installers.
 echo EAP installer running now...
 echo.
-call java -jar %SRC_DIR%/%EAP% %SUPPORT_DIR%\installation-eap -variablefile %SUPPORT_DIR%\installation-eap.variables
+call java -jar "%SRC_DIR%/%EAP%" "%SUPPORT_DIR%\installation-eap" -variablefile "%SUPPORT_DIR%\installation-eap.variables"
 
 
 if not "%ERRORLEVEL%" == "0" (
@@ -109,7 +110,7 @@ if not "%ERRORLEVEL%" == "0" (
 
 echo JBoss BPM Suite installer running now...
 echo.
-call java -jar %SRC_DIR%/%BPMS% %SUPPORT_DIR%\installation-bpms -variablefile %SUPPORT_DIR%\installation-bpms.variables
+call java -jar "%SRC_DIR%/%BPMS%" "%SUPPORT_DIR%\installation-bpms" -variablefile "%SUPPORT_DIR%\installation-bpms.variables"
 
 if not "%ERRORLEVEL%" == "0" (
 	echo Error Occurred During %PRODUCT% Installation!
@@ -119,7 +120,7 @@ if not "%ERRORLEVEL%" == "0" (
 
 echo JBoss EAP for DataVirt installer running now...
 echo.
-call java -jar %SRC_DIR%/%EAP% %SUPPORT_DIR%\installation-dv-eap -variablefile %SUPPORT_DIR%\installation-dv-eap.variables
+call java -jar "%SRC_DIR%/%EAP%" "%SUPPORT_DIR%\installation-dv-eap" -variablefile "%SUPPORT_DIR%\installation-dv-eap.variables"
 
 if not "%ERRORLEVEL%" == "0" (
   echo.
@@ -130,7 +131,7 @@ if not "%ERRORLEVEL%" == "0" (
 
 echo JBoss DV installer running now...
 echo.
-call java -jar %SRC_DIR%/%DV% %SUPPORT_DIR%\installation-dv -variablefile %SUPPORT_DIR%\installation-dv.variables
+call java -jar "%SRC_DIR%/%DV%" "%SUPPORT_DIR%\installation-dv" -variablefile "%SUPPORT_DIR%\installation-dv.variables"
 
 if not "%ERRORLEVEL%" == "0" (
 	echo Error Occurred During JBoss DV Installation!
@@ -153,17 +154,26 @@ echo.
 echo.
 echo - setting up web services...
 echo.
-call mvn clean install -f %PRJ_DIR%/pom.xml
+call mvn clean install -f "%PRJ_DIR%/pom.xml"
+
+if not "%ERRORLEVEL%" == "0" (
+  echo.
+	echo Error Building Maven Project!
+	echo.
+	GOTO :EOF
+)
+
+
 xcopy /Y /Q "%PRJ_DIR%\acme-demo-flight-service\target\acme-flight-service-1.0.war" "%SERVER_DIR%"
 xcopy /Y /Q "%PRJ_DIR%\acme-demo-hotel-service\target\acme-hotel-service-1.0.war" "%SERVER_DIR%"
 
 echo.
 echo - adding acmeDataModel-1.0.jar to business-central.war/WEB-INF/lib
-xcopy /Y /Q %PRJ_DIR%\acme-data-model\target\acmeDataModel-1.0.jar %SERVER_DIR%\business-central.war\WEB-INF\lib
+xcopy /Y /Q "%PRJ_DIR%\acme-data-model\target\acmeDataModel-1.0.jar" "%SERVER_DIR%\business-central.war\WEB-INF\lib"
 
 echo.
 echo - deploying external-client-ui-form-1.0.war to EAP deployments directory
-xcopy /Y /Q %PRJ_DIR%\external-client-ui-form\target\external-client-ui-form-1.0.war %SERVER_DIR%
+xcopy /Y /Q "%PRJ_DIR%\external-client-ui-form\target\external-client-ui-form-1.0.war" "%SERVER_DIR%"
 
 echo.
 echo - setting up standalone.xml configuration adjustments...
@@ -173,11 +183,11 @@ echo.
 
 echo - setup email task notification users...
 echo.
-xcopy "%SUPPORT_DIR%\userinfo.properties" "%SERVER_DIR%\business-central.war\WEB-INF\classes\"
+xcopy /Y /Q "%SUPPORT_DIR%\userinfo.properties" "%SERVER_DIR%\business-central.war\WEB-INF\classes\"
 
 echo.
 echo - updating the CustomWorkItemHandler.conf file to use the appropriate email server...
-xcopy /Y /Q %SUPPORT_DIR%\CustomWorkItemHandlers.conf %SERVER_DIR%\business-central.war\WEB-INF\classes\META-INF\
+xcopy /Y /Q "%SUPPORT_DIR%\CustomWorkItemHandlers.conf" "%SERVER_DIR%\business-central.war\WEB-INF\classes\META-INF\"
 
 REM Optional: uncomment this to install mock data for BPM Suite
 REM
@@ -214,16 +224,18 @@ echo - copy flight and hotel dashboard files ...
 echo.
 xcopy "%SUPPORT_DIR%\teiidfiles\dashboard\*.*" "%SERVER_DIR%\dashbuilder.war\WEB-INF\deployments\"
 
+:README
+
 echo.
 echo ===============================================================================
 echo =                                                                             =
 echo =  You can now start the DV server with:                                      =
 echo =                                                                             =
-echo =   %DV_SERVER_BIN%\standalone.sh -Djboss.socket.binding.port-offset=100  =
+echo =   %DV_SERVER_BIN%\standalone.sh -Djboss.socket.binding.port-offset=100
 echo =                                                                             =
 echo =  You can now start the %PRODUCT% with:                                =
 echo =                                                                             =
-echo =   %SERVER_BIN%\standalone.sh                                  =
+echo =   %SERVER_BIN%\standalone.bat                                 =
 echo =                                                                             =
 echo =  Login into business central at:                                            =
 echo =                                                                             =
@@ -231,7 +243,7 @@ echo =    http://localhost:8080/business-central  [u:erics / p:bpmsuite1!]      
 echo =                                                                             =
 echo =  See README.md for general details to run the various demo cases.           =
 echo =                                                                             =
-echo =  %DEMO% Setup Complete.        =
+echo =  %DEMO% Setup Complete.                                           =
 echo =                                                                             =
 echo ===============================================================================
 echo.
