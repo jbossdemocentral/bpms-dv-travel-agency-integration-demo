@@ -25,7 +25,6 @@
         <extension module="org.jboss.as.web"/>
         <extension module="org.jboss.as.webservices"/>
         <extension module="org.jboss.as.weld"/>
-        <extension module="org.modeshape"/>
         <extension module="org.jboss.teiid"/>
     </extensions>
 
@@ -207,19 +206,8 @@
                         <password>sa</password>
                     </security>
                 </datasource>
-                <datasource jndi-name="java:/datasources/ModeShapeDS" pool-name="ModeShapeDS" enabled="true" use-java-context="true">
-                    <connection-url>jdbc:jcr:jndi:jcr?repositoryName=dv</connection-url>
-                    <connection-property name="teiidsupport">
-                        true
-                    </connection-property>
-                    <driver>modeshape</driver>
-                    <security>
-                        <user-name>modeshapeUser</user-name>
-                        <password>${VAULT::modeshape::modeshape.password::1}</password>
-                    </security>
-                </datasource>
 								<datasource jndi-name="java:/flights_source" pool-name="h2-flight" enabled="true" use-java-context="true">
-									  <connection-url>jdbc:h2:file:${jboss.server.data.dir}/flight_data/flight-source-ds;INIT=RUNSCRIPT FROM '${jboss.server.config.dir}/flights-source-schema.sql';</connection-url>
+										<connection-url>jdbc:h2:file:${jboss.server.data.dir}/flight_data/flight-source-ds;INIT=RUNSCRIPT FROM '${jboss.server.config.dir}/flights-source-schema.sql';</connection-url>
 										<driver>h2</driver>
 										<security>
 											<user-name>sa</user-name>
@@ -245,9 +233,6 @@
                     <driver name="teiid-local" module="org.jboss.teiid">
                         <driver-class>org.teiid.jdbc.TeiidDriver</driver-class>
                         <xa-datasource-class>org.teiid.jdbc.TeiidDataSource</xa-datasource-class>
-                    </driver>
-                    <driver name="modeshape" module="org.modeshape.jdbc">
-                        <driver-class>org.modeshape.jdbc.LocalJcrDriver</driver-class>
                     </driver>
                 </drivers>
             </datasources>
@@ -317,13 +302,6 @@
                 <local-cache name="timestamps">
                     <transaction mode="NONE"/>
                     <eviction strategy="NONE"/>
-                </local-cache>
-            </cache-container>
-            <cache-container name="modeshape" module="org.modeshape">
-                <local-cache name="dv">
-                    <locking isolation="READ_COMMITTED"/>
-                    <transaction mode="NON_XA" locking="PESSIMISTIC"/>
-                    <file-store relative-to="jboss.server.data.dir" path="modeshape/store/dv" passivation="false" purge="false"/>
                 </local-cache>
             </cache-container>
             <cache-container name="teiid-cache" default-cache="resultset">
@@ -443,13 +421,6 @@
                         </login-module>
                     </authentication>
                 </security-domain>
-                <security-domain name="modeshape-security">
-                    <authentication>
-                        <login-module code="RealmDirect" flag="required">
-                            <module-option name="password-stacking" value="useFirstPass"/>
-                        </login-module>
-                    </authentication>
-                </security-domain>
             </security-domains>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:threads:1.1">
@@ -485,30 +456,6 @@
             <client-config name="Standard-Client-Config"/>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:weld:1.0"/>
-        <subsystem xmlns="urn:jboss:domain:modeshape:1.0">
-            <repository name="dv" cache-name="dv" cache-container="modeshape" anonymous-roles="readonly">
-                <workspaces>
-                    <initial-content>
-                        initial-content-default.xml
-                    </initial-content>
-                </workspaces>
-                <sequencers>
-                    <sequencer name="delimited-text-sequencer" classname="org.modeshape.sequencer.text.DelimitedTextSequencer" module="org.modeshape.sequencer.text" splitPattern="," path-expression="/files(//*.csv[*])/jcr:content[@jcr:data] => /derived/text/delimited/$1"/>
-                    <sequencer name="fixed-width-text-sequencer" classname="org.modeshape.sequencer.text.FixedWidthTextSequencer" module="org.modeshape.sequencer.text" commentMarker="#" path-expression="/files(//*.txt[*])/jcr:content[@jcr:data] => /derived/text/fixedWidth/$1"/>
-                    <sequencer name="ddl-sequencer" classname="org.modeshape.sequencer.ddl.DdlSequencer" module="org.modeshape.sequencer.ddl" path-expression="/files(//*.ddl[*])/jcr:content[@jcr:data] => /derived/ddl/$1"/>
-                    <sequencer name="cnd-sequencer" classname="cnd" module="org.modeshape" path-expression="/files(//*.cnd[*])/jcr:content[@jcr:data] => /derived/cnd/$1"/>
-                    <sequencer name="teiid-model-sequencer" classname="model" module="org.modeshape.sequencer.teiid" path-expression="/files(//*.xmi[*])/jcr:content[@jcr:data] => /derived/teiid/models/$1"/>
-                    <sequencer name="teiid-vdb-sequencer" classname="vdb" module="org.modeshape.sequencer.teiid" path-expression="/files(//*.vdb[*])/jcr:content[@jcr:data] => /derived/teiid/vdbs/$1"/>
-                    <sequencer name="xsd-sequencer" classname="xsd" module="org.modeshape.sequencer.xsd" path-expression="/files(//*.xsd[*])/jcr:content[@jcr:data] => /derived/xsd/$1"/>
-                    <sequencer name="wsdl-sequencer" classname="wsdl" module="org.modeshape.sequencer.wsdl" path-expression="/files(//*.wsdl[*])/jcr:content[@jcr:data] => /derived/wsdl/$1"/>
-                    <sequencer name="xml-sequencer" classname="xml" module="org.modeshape.sequencer.xml" path-expression="/files(//*.xml[*])/jcr:content[@jcr:data] => /derived/xml/$1"/>
-                    <sequencer name="zip-sequencer" classname="zip" module="org.modeshape.sequencer.zip" path-expression="/files(//*.zip[*])/jcr:content[@jcr:data] => /derived/zip/$1"/>
-                </sequencers>
-            </repository>
-            <webapp name="modeshape-rest.war"/>
-            <webapp name="modeshape-webdav.war"/>
-            <webapp name="modeshape-cmis.war"/>
-        </subsystem>
         <subsystem xmlns="urn:jboss:domain:teiid:1.0">
             <async-thread-pool>teiid-async</async-thread-pool>
             <policy-decider-module>org.jboss.teiid</policy-decider-module>
@@ -603,9 +550,6 @@
         </deployment>
         <deployment name="teiid-dashboard-builder.war" runtime-name="teiid-dashboard-builder.war">
             <fs-exploded path="dataVirtualization/teiid-dashboard/teiid-dashboard-builder.war/" relative-to="jboss.home.dir"/>
-        </deployment>
-        <deployment name="ModeShape.vdb" runtime-name="ModeShape.vdb">
-            <content sha1="f03ca1b179afd09e09b02f239d4adb35a1d248df"/>
         </deployment>
     </deployments>
 </server>
