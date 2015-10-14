@@ -10,7 +10,7 @@
 <pack index="0" name="Integration Platform Console" selected="true"/>
 <pack index="1" name="Red Hat JBoss DV Platform" selected="true"/>
 <pack index="2" name="Teiid" selected="true"/>
-<pack index="3" name="ModeShape" selected="true"/>
+<pack index="3" name="ModeShape" selected="false"/>
 </com.izforge.izpack.panels.TreePacksPanel>
 <com.izforge.izpack.panels.UserInputPanel id="security">
 <userInput>
@@ -22,8 +22,6 @@
 <entry autoPrompt="true" key="Teiid.user.password"/>
 <entry key="Teiid.user.odata" value=""/>
 <entry key="Teiid.user.logging" value=""/>
-<entry key="Modeshape.user" value="modeshapeUser"/>
-<entry autoPrompt="true" key="Modeshape.password"/>
 </userInput>
 </com.izforge.izpack.panels.UserInputPanel>
 <com.izforge.izpack.panels.UserInputPanel id="postinstall">
