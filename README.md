@@ -25,6 +25,8 @@ Option 1 - Install on your machine
 
     ```
      - login for admin and other roles (u:erics / p:bpmsuite1!)
+
+     - build project: open menu Project Authoring -> Open Project Editor -> Build -> Build & Deploy
     ```
 7. Create custom Dashboard entry for monitoring the external JBoss DataVirt virtualized DB views:
 
@@ -57,6 +59,8 @@ Option 1 - Install on your machine
 
     ```
 
+8. Submit and process a booking from customer booking form (see Booking a Trip below) - [http://localhost:8080/external-client-ui-form-1.0](http://localhost:8080/external-client-ui-form-1.0)
+
 ![Datasource config](https://raw.githubusercontent.com/jbossdemocentral/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/datasource-config-03.png)
 
 ![Datasource tables](https://raw.githubusercontent.com/jbossdemocentral/bpms-dv-travel-agency-integration-demo/master/docs/demo-images/datasource-config-05.png)
@@ -67,7 +71,7 @@ Option 1 - Install on your machine
 
 Booking a trip 
 --------------
-1. Build & deploy project.
+1. Assumes you did install and setup as described above (as in option 1).
 
 2. Start process with following data in start form (either from JBoss BPM Suite dashboard or using external client
 	 UI deployed at [http://localhost:8080/external-client-ui-form-1.0](http://localhost:8080/external-client-ui-form-1.0)):
