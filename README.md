@@ -19,7 +19,7 @@ Option 1 - Install on your machine
 
 4. Start JBoss DataVirt Server by running 'standalone.sh  -Djboss.socket.binding.port-offset=100' or 'standalone.bat -Djboss.socket.binding.port-offset=100' in the <path-to-project>/target/jboss-dv-6.2/bin directory
 
-5. Start JBoss BPMS Server by running 'standalone.sh' or 'standalone.bat' in the <path-to-project>/target/jboss-bpmsuite-6.1/bin directory.
+5. Start JBoss BPMS Server by running 'standalone.sh' or 'standalone.bat' in the <path-to-project>/target/jboss-bpmsuite-6.2/bin directory.
 
 6. Login to [http://localhost:8080/business-central](http://localhost:8080/business-central)
 
@@ -177,6 +177,8 @@ Supporting Articles
 Released versions
 -----------------
 See the tagged releases for the following versions of the product:
+
+- v1.3 - JBoss BPM Suite 6.2, JBoss EAP 6.4.4, JBoss DataVirt 6.2 and travel agency project installed using disparate data sources.
 
 - v1.2 - JBoss BPM Suite 6.1, JBoss DataVirt 6.2 and travel agency project using disparate data sources.
 
