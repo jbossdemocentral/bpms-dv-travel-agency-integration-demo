@@ -58,7 +58,7 @@ if [ -r $SRC_DIR/$EAP ] || [ -L $SRC_DIR/$EAP ]; then
 	echo "EAP Product sources are present..."
 	echo
 else
-	echo "Need to download $EAP package from the Customer Portal" 
+	echo "Need to download $EAP package from https://developers.redhat.com/products/eap/download"
 	echo "and place it in the $SRC_DIR directory to proceed..."
 	echo
 	exit
@@ -68,7 +68,7 @@ if [ -r $SRC_DIR/$BPMS ] || [ -L $SRC_DIR/$BPMS ]; then
 		echo "BPM Suite sources are present..."
 		echo
 else
-		echo "Need to download $BPMS package from the Customer Portal"
+		echo "Need to download $BPMS package from https://developers.redhat.com/products/bpmsuite/download"
 		echo "and place it in the $SRC_DIR directory to proceed..."
 		echo
 		exit
@@ -78,7 +78,7 @@ if [ -r $SRC_DIR/$DV ] || [ -L $SRC_DIR/$DV ]; then
 	echo "DV product sources, present..."
 	echo
 else
-	echo "Need to download $DV package from the Customer Portal"
+	echo "Need to download $DV package from https://developers.redhat.com/products/datavirt/download"
 	echo "and place it in the $SRC_DIR directory to proceed..."
 	echo
 	exit
